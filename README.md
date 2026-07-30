@@ -17,3 +17,14 @@ v0.0.1
 Project setup complete.
 Python environment ready.
 Application running.
+## Project Architecture
+
+MindScale Studio is organized into:
+
+- app: Core application logic
+- content_engine: AI storytelling and text generation
+- image_engine: Visual generation workflow
+- prompts: AI prompt library
+- assets: Templates and design resources
+- output: Generated Pinterest content
+- data: Analytics and project data
