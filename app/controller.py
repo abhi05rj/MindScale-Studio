@@ -25,11 +25,16 @@ class MindScaleController:
         print("----------------")
 
         ideas = self.idea_engine.generate_ideas()
+        idea = ideas[0]
      
         print("Available Ideas:")
-        for idea in ideas:
+        for item in ideas:
             print("----------------")
-            print(idea["title"])
+            print(item["title"])
 
         print("Generated Idea:")
         print(idea)
+        post = self.content_engine.generate_post(idea)
+
+        print("\nGenerated Post:")
+        print(post)
