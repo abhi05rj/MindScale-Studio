@@ -28,3 +28,15 @@ MindScale Studio is organized into:
 - assets: Templates and design resources
 - output: Generated Pinterest content
 - data: Analytics and project data
+
+## Daily Content Automation
+
+Run the local Pinterest content automation with Python 3.10 or newer:
+
+```bash
+python3 main.py
+```
+
+The runner selects today's calendar topic, generates and saves one Pinterest content package
+under `output/content_packages`, and exits with status `0`. Running it again on the same day is
+a successful no-op. It only prepares local content; it does not publish to Pinterest.
