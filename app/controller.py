@@ -42,5 +42,10 @@ class MindScaleController:
         print("\nGenerated Image Prompt:")
         print(image_prompt)
 
+        image = self.image_engine.generate_image(image_prompt)
+
+        print("\nGenerated Image:")
+        print(image)
+
         print("\nGenerated Post:")
         print(post)
