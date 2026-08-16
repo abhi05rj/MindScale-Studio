@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Mind Scale Studio creates original visual content and publishing-ready Pinterest posts.">
+    <title>Mind Scale Studio</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --background: #071923;
+        --surface: #0d2932;
+        --text: #f4fbfa;
+        --muted: #b4cbc8;
+        --accent: #79e0ce;
+        --border: rgba(121, 224, 206, 0.2);
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 85% 10%, rgba(121, 224, 206, 0.14), transparent 32rem),
+          var(--background);
+        color: var(--text);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        line-height: 1.6;
+      }
+
+      .page {
+        width: min(1080px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 28px 0;
+      }
+
+      .brand {
+        color: var(--text);
+        font-size: 0.95rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      header a:last-child,
+      footer a {
+        color: var(--accent);
+        text-underline-offset: 4px;
+      }
+
+      main { padding: 88px 0 100px; }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 0.82rem;
+        font-weight: 750;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 850px;
+        margin: 18px 0 24px;
+        font-size: clamp(3rem, 8vw, 6.6rem);
+        letter-spacing: -0.065em;
+        line-height: 0.96;
+      }
+
+      .intro {
+        max-width: 760px;
+        margin: 0;
+        color: var(--muted);
+        font-size: clamp(1.1rem, 2vw, 1.35rem);
+      }
+
+      .features {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 76px;
+      }
+
+      article {
+        min-height: 220px;
+        padding: 28px;
+        border: 1px solid var(--border);
+        border-radius: 18px;
+        background: rgba(13, 41, 50, 0.72);
+      }
+
+      .number {
+        color: var(--accent);
+        font-size: 0.8rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+      }
+
+      h2 { margin: 38px 0 10px; font-size: 1.25rem; }
+      article p { margin: 0; color: var(--muted); }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 28px 0 40px;
+        border-top: 1px solid var(--border);
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 760px) {
+        main { padding-top: 56px; }
+        .features { grid-template-columns: 1fr; margin-top: 52px; }
+        article { min-height: auto; }
+        footer { flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <a class="brand" href="index.html">Mind Scale Studio</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </header>
+
+      <main>
+        <p class="eyebrow">Original ideas. Clear visuals.</p>
+        <h1>Mind Scale Studio</h1>
+        <p class="intro">Mind Scale Studio is a personal content automation project that creates original visual content and publishing-ready Pinterest posts for my own account.</p>
+
+        <section class="features" aria-label="What Mind Scale Studio does">
+          <article>
+            <span class="number">01</span>
+            <h2>Content idea generation</h2>
+            <p>Selects educational topics and develops concise titles, descriptions, and visual directions.</p>
+          </article>
+          <article>
+            <span class="number">02</span>
+            <h2>Pinterest-ready images</h2>
+            <p>Creates original vertical graphics with readable typography, topic-aware design, and consistent branding.</p>
+          </article>
+          <article>
+            <span class="number">03</span>
+            <h2>Publishing and scheduling</h2>
+            <p>Prepares approved content for publishing to the owner’s Pinterest account through authorized tools.</p>
+          </article>
+        </section>
+      </main>
+
+      <footer>
+        <span>&copy; 2026 Mind Scale Studio</span>
+        <a href="privacy.html">Read the Privacy Policy</a>
+      </footer>
+    </div>
+  </body>
+</html>
