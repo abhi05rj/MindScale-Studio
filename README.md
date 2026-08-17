@@ -74,3 +74,45 @@ The Pinterest application must be approved for `boards:read`, `boards:write`, `p
 
 After Trial approval, remove `--dry-run` to look up the configured board and create the Pin.
 The content package records the status, Pin ID, board ID, UTC timestamp, and any API error.
+
+## Scheduling & Queue V1
+
+The publication queue is an atomic, versioned JSON document stored locally at
+`.local-runtime/publication_queue.json`. Queue timestamps are always persisted in UTC with an
+explicit `+00:00` offset. Queue records move through `scheduled`, `processing`, `published`,
+`failed`, or `cancelled` and retain their attempt count, last error, and Pinterest Pin ID.
+
+Schedule a completed content package using an ISO 8601 datetime with an explicit timezone:
+
+```bash
+.venv/bin/python -m app.scheduling.cli schedule \
+  --package output/content_packages/20260817T093523762269Z_time.json \
+  --at 2026-08-20T09:30:00Z
+```
+
+Inspect and manage the queue:
+
+```bash
+.venv/bin/python -m app.scheduling.cli list
+.venv/bin/python -m app.scheduling.cli get QUEUE_ITEM_ID
+.venv/bin/python -m app.scheduling.cli cancel QUEUE_ITEM_ID
+```
+
+Process due items offline—the safe default—with a board placeholder used only to validate the
+complete Pinterest payload:
+
+```bash
+PINTEREST_BOARD_ID=offline-board-placeholder \
+  .venv/bin/python -m app.scheduling.cli process
+```
+
+Offline processing does not call Pinterest, increment attempt counts, change queue status, or
+create a Pin ID. Live publishing remains disabled unless `--live` is supplied explicitly:
+
+```bash
+.venv/bin/python -m app.scheduling.cli process --live
+```
+
+The queue processor delegates payload validation and eventual publication to the accepted
+Pinterest V1 publisher. Only a live attempt transitions an item to `processing`; success records
+`published` and the Pin ID, while an exception records `failed` and the error for a later retry.
