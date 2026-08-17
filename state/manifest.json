@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "exported_at": "2026-08-17T16:37:01.859262+00:00",
+  "image_artifact": {
+    "run_id": "32046407591",
+    "name": "mindscale-images-32046407591"
+  },
+  "counts": {
+    "content_plans": 1,
+    "pipeline_states": 1,
+    "content_packages": 1,
+    "queue_present": true
+  }
+}

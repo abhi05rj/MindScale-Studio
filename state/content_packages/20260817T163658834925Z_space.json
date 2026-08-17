@@ -1,0 +1,61 @@
+{
+  "created_at": "2026-08-17T16:36:58.834925+00:00",
+  "publish_date": "2026-08-17",
+  "topic": "Space",
+  "content_package": {
+    "topic": "Space",
+    "strategy": {
+      "category": "Educational Storytelling",
+      "title": "Space: The Big Picture",
+      "hook": "A surprising everyday comparison",
+      "story_structure": {
+        "opening": "Introduce a surprising fact about Space.",
+        "escalation": "Break Space into three clear visual moments.",
+        "takeaway": "Finish with one memorable perspective the audience can share."
+      },
+      "audience": "Curious learners and visual education audiences.",
+      "visual_direction": "Simple visual journey explaining Space",
+      "pinterest_keywords": [
+        "space",
+        "space facts",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "Space: The Big Picture",
+      "pinterest_description": "A surprising everyday comparison Explore space: the big picture with this clear visual guide. Perfect for curious minds who love space, space facts, educational infographic.",
+      "hashtags": [
+        "#space",
+        "#spacefacts",
+        "#educationalinfographic",
+        "#visuallearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 educational illustration. Simple visual journey explaining Space. Clean modern infographic layout, cinematic soft lighting, inspiring colors, premium editorial quality, no text."
+    },
+    "scores": {
+      "curiosity": 7,
+      "emotional_impact": 6,
+      "shareability": 8
+    },
+    "local_editorial_angle": "A surprising everyday comparison"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-17_space_background.png",
+    "final_path": "output/images/2026-08-17_space_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739845,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
