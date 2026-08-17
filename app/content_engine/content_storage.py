@@ -1,5 +1,7 @@
 import json
+import os
 import re
+import uuid
 from dataclasses import asdict
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -37,6 +39,39 @@ class ContentStorage:
             if record.get("publish_date") == target_date:
                 return path
         return None
+
+    def record_for_publish_date(self, publish_date: date) -> dict | None:
+        target_date = publish_date.isoformat()
+        for _, record in self._stored_records():
+            if record.get("publish_date") == target_date:
+                return record
+        return None
+
+    def update_image_state(self, publish_date: date, image_state: dict) -> Path:
+        return self._update_state(publish_date, "image", image_state)
+
+    def update_pinterest_publication(self, publish_date: date, publication_state: dict) -> Path:
+        """Atomically persist Pinterest publication metadata on a content package."""
+        return self._update_state(publish_date, "pinterest_publication", publication_state)
+
+    def _update_state(self, publish_date: date, key: str, state: dict) -> Path:
+        path = self.path_for_publish_date(publish_date)
+        if path is None:
+            raise RuntimeError(
+                f"No content package exists for publish date: {publish_date.isoformat()}"
+            )
+
+        record = json.loads(path.read_text(encoding="utf-8"))
+        record[key] = state
+        temporary_path = path.with_name(f".{path.name}.{uuid.uuid4().hex}.tmp")
+        try:
+            temporary_path.write_text(
+                json.dumps(record, indent=2, ensure_ascii=False), encoding="utf-8"
+            )
+            os.replace(temporary_path, path)
+        finally:
+            temporary_path.unlink(missing_ok=True)
+        return path
 
     def stored_topics(self) -> set[str]:
         topics = set()
