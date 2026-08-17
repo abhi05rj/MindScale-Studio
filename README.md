@@ -41,6 +41,16 @@ The runner selects today's calendar topic, generates and saves one Pinterest con
 under `output/content_packages`, and exits with status `0`. Running it again on the same day is
 a successful no-op. It only prepares local content; it does not publish to Pinterest.
 
+Automation V1 can also be run directly for a specific date:
+
+```bash
+.venv/bin/python -m app.automation_runner --date 2026-08-17
+```
+
+Use `--dry-run` to validate an existing completed package, or preview the next topic when no
+package exists, without writing content or images. Automation uses the local deterministic Pillow
+provider and never contacts Pinterest.
+
 ## Pinterest Publishing (API v5)
 
 Publishing is a separate, explicit operation and is never performed by daily automation. A Pin

@@ -102,6 +102,13 @@ class ContentStorage:
             "publish_date": scheduled_content.publish_date.isoformat(),
             "topic": scheduled_content.topic,
             "content_package": asdict(scheduled_content.content_package),
+            "pinterest_publication": {
+                "status": "not_published",
+                "pin_id": None,
+                "board_id": None,
+                "timestamp": None,
+                "error": None,
+            },
         }
 
         self.storage_directory.mkdir(parents=True, exist_ok=True)
