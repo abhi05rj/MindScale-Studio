@@ -82,14 +82,16 @@ class ContentStorage:
 
         return topics
 
-    def save(self, scheduled_content: "ScheduledContent") -> Path:
+    def save(
+        self, scheduled_content: "ScheduledContent", *, allow_repeated_topic: bool = False
+    ) -> Path:
         if self.has_publish_date(scheduled_content.publish_date):
             raise DuplicatePublishDateError(
                 "A scheduled content package already exists for publish date: "
                 f"{scheduled_content.publish_date.isoformat()}"
             )
 
-        if self.has_topic(scheduled_content.topic):
+        if not allow_repeated_topic and self.has_topic(scheduled_content.topic):
             raise DuplicateTopicError(
                 f"A scheduled content package already exists for topic: {scheduled_content.topic}"
             )

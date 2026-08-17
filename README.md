@@ -152,3 +152,31 @@ Override the default pillar set by repeating `--pillar` at least twice:
 The planner rotates pillars without consecutive repetition and compares normalized titles and
 angles against recent `output/content_packages` history and prior local plans. It uses fixed local
 templates and deterministic date-based selection; it does not call an AI model or any network API.
+
+## Pipeline Orchestrator V1
+
+Pipeline Orchestrator V1 connects the accepted offline production components without publishing:
+
+```text
+Content Planner → Automation V1 → Content + Pillow PNG → Publication Queue
+```
+
+Run the planned item for a specific date:
+
+```bash
+.venv/bin/python -m app.pipeline.cli --date 2026-08-19
+```
+
+The target date must exist in exactly one persisted weekly plan. The orchestrator applies that
+day's planned pillar, working title, and angle to the existing deterministic content pipeline,
+runs the accepted 1000×1500 Pillow image workflow, and schedules the completed package in the
+local publication queue at 09:00 UTC.
+
+Per-date pipeline state is written atomically to `.local-runtime/pipeline/YYYY-MM-DD.json` using
+`planned`, `generating`, `generated`, `queued`, and `failed` transitions. Generated packages and
+images remain under the existing ignored `output` directories, and queue data remains under
+`.local-runtime`. Repeating a completed date reuses its package, PNG, and queue item. A failed
+image or queue stage can be retried without corrupting earlier completed work.
+
+The orchestrator never invokes the Pinterest publisher or queue processor. It only creates a
+local scheduled queue item, so running this command cannot publish a Pin or contact Pinterest.
