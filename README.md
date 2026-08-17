@@ -180,3 +180,54 @@ image or queue stage can be retried without corrupting earlier completed work.
 
 The orchestrator never invokes the Pinterest publisher or queue processor. It only creates a
 local scheduled queue item, so running this command cannot publish a Pin or contact Pinterest.
+
+## Hosted Runtime V1
+
+`.github/workflows/hosted-runtime.yml` runs the existing pipeline unattended on a GitHub-hosted
+Ubuntu runner. It supports both a daily UTC schedule and manual dispatch with an optional UTC
+target date. The job uses one non-cancelling `mindscale-production` concurrency group, Python
+3.12, and only `requirements.txt`. Hosted image generation uses the deterministic Pillow path;
+Core ML is not installed or invoked. The compositor selects the open-source DejaVu or Liberation
+system fonts available on Ubuntu and does not depend on macOS font paths.
+
+The workflow separates durable metadata from binary outputs:
+
+```text
+runtime-state Git branch (state/)
+  content_plans/*.json
+  pipeline/*.json
+  content_packages/*.json
+  publication_queue.json
+  manifest.json
+
+GitHub Actions artifacts
+  final 1000x1500 PNGs
+  hosted execution log
+```
+
+At startup, the job checks out the dedicated `runtime-state` branch in a separate worktree,
+validates and imports its JSON snapshot, and restores the prior image artifact named in the
+manifest. It then ensures the target date has a deterministic plan and runs Pipeline Orchestrator
+V1. At shutdown, it exports portable checkout-relative references, rejects non-JSON state files,
+commits only the `state/` tree to the state branch, and uploads images and diagnostics as
+artifacts. Generated PNGs are never committed to the runtime branch, and Actions cache is not
+used as authoritative state.
+
+Manual execution is available from the Actions tab with `target_date` in `YYYY-MM-DD` format.
+Scheduled execution defaults to the current UTC date. The hosted runner never invokes the
+publication queue processor or Pinterest publisher. Consequently Hosted Runtime V1 cannot make
+a Pinterest API request or publish a Pin; queue items remain locally scheduled metadata for a
+future, explicitly designed publishing phase.
+
+The state adapter can also be exercised locally:
+
+```bash
+.venv/bin/python -m app.hosted_runtime.cli import-state --source /path/to/state
+.venv/bin/python -m app.hosted_runtime.runner --date 2026-08-19
+.venv/bin/python -m app.hosted_runtime.cli export-state --destination /path/to/state
+```
+
+The runtime-state branch is intentionally a V1 metadata store. Its serialized workflow prevents
+concurrent writers, but branch history can grow and artifact retention can expire. Before live
+publishing is enabled, retention, branch protection/recovery, failed artifact restoration, and
+the durability of publication results must be reviewed explicitly.

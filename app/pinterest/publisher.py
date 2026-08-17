@@ -12,6 +12,7 @@ from PIL import Image, UnidentifiedImageError
 from app.content_engine import ContentStorage
 from app.pinterest.client import PinterestApiClient
 from app.pinterest.config import PinterestConfig
+from app.runtime_paths import resolve_runtime_reference
 
 
 class PinterestPayloadError(ValueError):
@@ -75,7 +76,7 @@ class PinterestPublisher:
 
     def build_payload(self, record: dict) -> dict:
         pinterest = record.get("content_package", {}).get("pinterest", {})
-        image_path = Path(record.get("image", {}).get("final_path", ""))
+        image_path = resolve_runtime_reference(record.get("image", {}).get("final_path", ""))
         title = pinterest.get("pinterest_title")
         description = pinterest.get("pinterest_description")
         destination_url = pinterest.get("destination_url") or pinterest.get("pinterest_destination_url")

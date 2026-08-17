@@ -1,0 +1,186 @@
+name: MindScale Hosted Runtime V1
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_date:
+        description: "UTC target date (YYYY-MM-DD); defaults to the current UTC date"
+        required: false
+        type: string
+  schedule:
+    - cron: "17 5 * * *"
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: mindscale-production
+  cancel-in-progress: false
+
+env:
+  TZ: UTC
+  PYTHONUNBUFFERED: "1"
+  RUNTIME_BRANCH: runtime-state
+
+jobs:
+  offline-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out application
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install standard dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Resolve UTC target date
+        id: target
+        env:
+          REQUESTED_DATE: ${{ inputs.target_date }}
+        run: |
+          if [ -n "$REQUESTED_DATE" ]; then
+            python -c 'import os; from datetime import date; date.fromisoformat(os.environ["REQUESTED_DATE"])'
+            TARGET_DATE="$REQUESTED_DATE"
+          else
+            TARGET_DATE="$(date -u +%F)"
+          fi
+          echo "date=$TARGET_DATE" >> "$GITHUB_OUTPUT"
+
+      - name: Check out persistent JSON state branch
+        id: state
+        run: |
+          STATE_WORKTREE="$RUNNER_TEMP/mindscale-runtime-state"
+          set +e
+          git ls-remote --exit-code origin "refs/heads/$RUNTIME_BRANCH" >/dev/null
+          REMOTE_STATE_STATUS=$?
+          set -e
+          if [ "$REMOTE_STATE_STATUS" -eq 0 ]; then
+            git fetch origin "$RUNTIME_BRANCH:$RUNTIME_BRANCH"
+            git worktree add "$STATE_WORKTREE" "$RUNTIME_BRANCH"
+          elif [ "$REMOTE_STATE_STATUS" -eq 2 ]; then
+            git worktree add --detach "$STATE_WORKTREE" HEAD
+            git -C "$STATE_WORKTREE" checkout --orphan "$RUNTIME_BRANCH"
+            git -C "$STATE_WORKTREE" rm -rf --ignore-unmatch .
+          else
+            echo "Could not determine whether the runtime-state branch exists." >&2
+            exit "$REMOTE_STATE_STATUS"
+          fi
+          echo "worktree=$STATE_WORKTREE" >> "$GITHUB_OUTPUT"
+
+      - name: Inspect prior image artifact
+        id: prior_artifact
+        env:
+          STATE_PATH: ${{ steps.state.outputs.worktree }}/state
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from app.hosted_runtime import HostedRuntimeStateAdapter
+
+          run_id, name = HostedRuntimeStateAdapter().read_image_artifact(Path(os.environ["STATE_PATH"]))
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
+              output.write(f"run_id={run_id or ''}\n")
+              output.write(f"name={name or ''}\n")
+          PY
+
+      - name: Restore prior generated images
+        if: steps.prior_artifact.outputs.run_id != '' && steps.prior_artifact.outputs.name != ''
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.prior_artifact.outputs.name }}
+          path: output/images
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.prior_artifact.outputs.run_id }}
+
+      - name: Import persistent runtime state
+        id: import_state
+        run: >-
+          python -m app.hosted_runtime.cli import-state
+          --source "${{ steps.state.outputs.worktree }}/state"
+
+      - name: Validate restored final images
+        id: restored_images
+        run: python -m app.hosted_runtime.cli validate-images
+
+      - name: Run offline pipeline
+        id: pipeline
+        run: |
+          mkdir -p .local-runtime/hosted
+          set +e
+          python -m app.hosted_runtime.runner --date "${{ steps.target.outputs.date }}" 2>&1 | tee .local-runtime/hosted/hosted-runtime.log
+          PIPELINE_EXIT=${PIPESTATUS[0]}
+          set -e
+          echo "exit_code=$PIPELINE_EXIT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload generated PNG artifact
+        id: image_artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mindscale-images-${{ github.run_id }}
+          path: output/images/*_pinterest.png
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload diagnostic log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mindscale-diagnostics-${{ github.run_id }}
+          path: .local-runtime/hosted/hosted-runtime.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Export persistent JSON state
+        id: export_state
+        if: >-
+          always() &&
+          steps.import_state.outcome == 'success' &&
+          steps.restored_images.outcome == 'success' &&
+          steps.image_artifact.outcome == 'success'
+        run: >-
+          python -m app.hosted_runtime.cli export-state
+          --destination "${{ steps.state.outputs.worktree }}/state"
+          --image-artifact-run-id "${{ github.run_id }}"
+          --image-artifact-name "mindscale-images-${{ github.run_id }}"
+
+      - name: Verify state branch contains JSON only
+        if: always() && steps.export_state.outcome == 'success'
+        env:
+          STATE_PATH: ${{ steps.state.outputs.worktree }}/state
+        run: |
+          if find "$STATE_PATH" -type f ! -name '*.json' -print -quit | grep -q .; then
+            echo "Runtime state contains a non-JSON file." >&2
+            exit 1
+          fi
+
+      - name: Persist runtime state branch
+        if: always() && steps.export_state.outcome == 'success'
+        env:
+          STATE_WORKTREE: ${{ steps.state.outputs.worktree }}
+        run: |
+          git -C "$STATE_WORKTREE" config user.name "github-actions[bot]"
+          git -C "$STATE_WORKTREE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$STATE_WORKTREE" add state
+          if git -C "$STATE_WORKTREE" diff --cached --quiet; then
+            echo "Persistent state is unchanged."
+          else
+            git -C "$STATE_WORKTREE" commit -m "Update hosted runtime state"
+            git -C "$STATE_WORKTREE" push origin "$RUNTIME_BRANCH"
+          fi
+
+      - name: Enforce pipeline success
+        if: always()
+        env:
+          PIPELINE_EXIT: ${{ steps.pipeline.outputs.exit_code }}
+        run: test "${PIPELINE_EXIT:-1}" -eq 0

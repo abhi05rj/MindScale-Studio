@@ -15,6 +15,7 @@ from app.content_engine import (
 from app.image_engine import LocalImageProvider, PillowTemplateProvider
 from app.pipeline.state import PipelineStateStorage
 from app.planning import PlannedDay, WeeklyPlan, WeeklyPlanStorage
+from app.runtime_paths import resolve_runtime_reference, stable_runtime_reference
 from app.scheduling import DuplicateQueueItemError, PublicationQueue, QueueItem
 
 
@@ -132,7 +133,7 @@ class PipelineOrchestrator:
             self.state_storage.transition(
                 target_date,
                 "generated",
-                content_package_ref=str(package_path),
+                content_package_ref=stable_runtime_reference(package_path),
                 last_error=None,
             )
             self.log(f"PIPELINE GENERATED: {package_path}")
@@ -141,7 +142,7 @@ class PipelineOrchestrator:
             self.state_storage.transition(
                 target_date,
                 "queued",
-                content_package_ref=str(package_path),
+                content_package_ref=stable_runtime_reference(package_path),
                 queue_item_id=queue_item.id,
                 last_error=None,
             )
@@ -153,7 +154,9 @@ class PipelineOrchestrator:
             self.state_storage.transition(
                 target_date,
                 "failed",
-                content_package_ref=str(package_path.resolve()) if package_path else None,
+                content_package_ref=(
+                    stable_runtime_reference(package_path) if package_path else None
+                ),
                 last_error=str(error),
             )
             self.log(f"PIPELINE FAILED: {error}")
@@ -180,7 +183,7 @@ class PipelineOrchestrator:
         except DuplicateQueueItemError:
             resolved = package_path.resolve()
             for item in self.publication_queue.list_items():
-                if Path(item.content_package_ref) == resolved:
+                if resolve_runtime_reference(item.content_package_ref) == resolved:
                     return item
             raise
 
@@ -195,4 +198,4 @@ class PipelineOrchestrator:
 
     @staticmethod
     def _optional_path(value: str | None) -> Path | None:
-        return Path(value) if value else None
+        return resolve_runtime_reference(value) if value else None

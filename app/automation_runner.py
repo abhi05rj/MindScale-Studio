@@ -14,6 +14,7 @@ from app.image_engine import (
     PinterestImageCompositor,
     PinterestImageValidator,
 )
+from app.runtime_paths import resolve_runtime_reference, stable_runtime_reference
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -55,7 +56,7 @@ def validate_complete_package(record: dict, target_date: date) -> Path:
     final_path_value = image_state.get("final_path")
     if not isinstance(final_path_value, str) or not final_path_value:
         raise ValueError("Final Pinterest image path is missing.")
-    final_path = Path(final_path_value)
+    final_path = resolve_runtime_reference(final_path_value)
     image = PinterestImageValidator().validate(final_path)
     if (
         image_state.get("width") != image.width
@@ -146,7 +147,7 @@ def run_daily_automation(
             log("INITIALIZED PUBLICATION STATE: not_published")
 
         image_state = record.get("image", {})
-        completed_path = Path(image_state.get("final_path", ""))
+        completed_path = resolve_runtime_reference(image_state.get("final_path", ""))
         if image_state.get("status") == "complete" and completed_path.is_file():
             validate_complete_package(record, run_date)
             log(f"IMAGE/NO-OP already complete: {completed_path}")
@@ -190,8 +191,8 @@ def run_daily_automation(
             run_date,
             {
                 "status": "complete",
-                "background_path": str(generated.output_path.resolve()),
-                "final_path": str(composed.output_path.resolve()),
+                "background_path": stable_runtime_reference(generated.output_path),
+                "final_path": stable_runtime_reference(composed.output_path),
                 "provider": generated.provider,
                 "model": generated.model,
                 "seed": generated.seed,

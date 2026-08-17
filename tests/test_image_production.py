@@ -17,6 +17,15 @@ from app.image_engine import (
 
 
 class ImageProductionTests(unittest.TestCase):
+    def test_compositor_has_linux_open_source_font_candidates(self):
+        candidates = {str(path) for path in PinterestImageCompositor._FONT_CANDIDATES}
+        self.assertIn(
+            "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", candidates
+        )
+        self.assertIn(
+            "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf", candidates
+        )
+
     def test_fake_provider_and_compositor_create_valid_pinterest_asset(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

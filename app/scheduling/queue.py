@@ -7,6 +7,8 @@ from dataclasses import asdict, dataclass, replace
 from datetime import date, datetime, timezone
 from pathlib import Path
 
+from app.runtime_paths import resolve_runtime_reference, stable_runtime_reference
+
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 DEFAULT_QUEUE_PATH = PROJECT_ROOT / ".local-runtime" / "publication_queue.json"
@@ -117,7 +119,7 @@ class PublicationQueue:
         items = self.list_items()
         for existing in items:
             if (
-                Path(existing.content_package_ref) == package_path
+                resolve_runtime_reference(existing.content_package_ref) == package_path
                 and existing.status in {"scheduled", "processing", "published"}
             ):
                 raise DuplicateQueueItemError(
@@ -125,7 +127,7 @@ class PublicationQueue:
                 )
         item = QueueItem(
             id=str(uuid.uuid4()),
-            content_package_ref=str(package_path),
+            content_package_ref=stable_runtime_reference(package_path),
             content_publish_date=publish_date,
             scheduled_for=scheduled_utc.isoformat(),
             platform="pinterest",
@@ -209,7 +211,9 @@ class PublicationQueue:
         return self._replace(replace(item, status="failed", last_error=error or "Unknown error"))
 
     def validate_reference(self, item: QueueItem) -> None:
-        publish_date = self._validate_content_package(Path(item.content_package_ref))
+        publish_date = self._validate_content_package(
+            resolve_runtime_reference(item.content_package_ref)
+        )
         if publish_date != item.content_publish_date:
             raise QueueValidationError("Queued content reference publish date has changed.")
 

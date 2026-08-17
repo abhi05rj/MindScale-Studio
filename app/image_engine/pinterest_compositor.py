@@ -62,6 +62,10 @@ class PinterestImageCompositor:
     """Builds a Pinterest asset while keeping typography out of the AI model."""
 
     _FONT_CANDIDATES = (
+        # DejaVu and Liberation are commonly available under open-source licenses
+        # on GitHub-hosted Ubuntu runners.
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"),
+        Path("/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf"),
         Path("/System/Library/Fonts/Supplemental/Arial Bold.ttf"),
         Path("/System/Library/Fonts/Helvetica.ttc"),
         Path("/Library/Fonts/Arial Bold.ttf"),
