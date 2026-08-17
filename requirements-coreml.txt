@@ -1,0 +1,11 @@
+# Isolated Python 3.11 environment for local Core ML inference.
+numpy==1.23.5
+coremltools==8.3.0
+torch==2.5.0
+sympy==1.13.3
+diffusers==0.30.2
+transformers==4.44.2
+huggingface-hub==0.24.6
+scipy==1.13.1
+Pillow==12.3.0
+safetensors==0.4.5

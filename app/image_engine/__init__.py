@@ -1,3 +1,4 @@
+from app.image_engine.coreml_stable_diffusion_provider import CoreMLStableDiffusionProvider
 from app.image_engine.fake_image_provider import FakeImageProvider
 from app.image_engine.local_image_provider import (
     ImageGenerationRequest,
@@ -15,6 +16,7 @@ from app.image_engine.pinterest_compositor import (
 )
 
 __all__ = [
+    "CoreMLStableDiffusionProvider",
     "FakeImageProvider",
     "ImageGenerationRequest",
     "ImageGenerationResult",

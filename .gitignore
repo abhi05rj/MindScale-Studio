@@ -1,5 +1,6 @@
 # Virtual Environment
 .venv/
+.local-runtime/
 
 # Python cache
 __pycache__/
@@ -13,3 +14,7 @@ __pycache__/
 
 # Environment variables
 .env
+
+# Generated runtime content
+output/images/
+output/content_packages/*.json
