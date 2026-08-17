@@ -116,3 +116,39 @@ create a Pin ID. Live publishing remains disabled unless `--live` is supplied ex
 The queue processor delegates payload validation and eventual publication to the accepted
 Pinterest V1 publisher. Only a live attempt transitions an item to `processing`; success records
 `published` and the Pin ID, while an exception records `failed` and the error for a later retry.
+
+## Content Planner V1
+
+Content Planner V1 creates a deterministic seven-day editorial plan before content or images are
+generated. Plans are stored atomically under `.local-runtime/content_plans/YYYY-MM-DD.json` and
+survive application restarts. Each day records its publish date, content pillar, working title,
+angle, objective, and `planned` status.
+
+Create a plan with the balanced default pillars:
+
+```bash
+.venv/bin/python -m app.planning.cli --start-date 2026-08-19
+```
+
+Show the already-persisted plan without regenerating it:
+
+```bash
+.venv/bin/python -m app.planning.cli --start-date 2026-08-19 --show
+```
+
+A second create command for the same start date fails safely. Replacement must be explicit:
+
+```bash
+.venv/bin/python -m app.planning.cli --start-date 2026-08-19 --replace
+```
+
+Override the default pillar set by repeating `--pillar` at least twice:
+
+```bash
+.venv/bin/python -m app.planning.cli --start-date 2026-08-19 \
+  --pillar Science --pillar Mindfulness --pillar Creativity
+```
+
+The planner rotates pillars without consecutive repetition and compares normalized titles and
+angles against recent `output/content_packages` history and prior local plans. It uses fixed local
+templates and deterministic date-based selection; it does not call an AI model or any network API.
