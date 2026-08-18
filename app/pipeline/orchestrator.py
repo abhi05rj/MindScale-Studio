@@ -12,6 +12,7 @@ from app.content_engine import (
     ContentStorage,
     ScheduledContent,
 )
+from app.content_engine.content_quality import format_pattern_text, pattern_for_angle
 from app.image_engine import LocalImageProvider, PillowTemplateProvider
 from app.pipeline.state import PipelineStateStorage
 from app.planning import PlannedDay, WeeklyPlan, WeeklyPlanStorage
@@ -47,10 +48,33 @@ class PlannedContentEngine:
     def create_scheduled_content(self, publish_date: date) -> ScheduledContent:
         self._validate_date(publish_date)
         base_strategy = self.pipeline_controller.idea_generator.generate(self.planned_day.topic)
+        planned_pattern = pattern_for_angle(
+            self.planned_day.angle_pattern or self.planned_day.content_angle
+        )
         strategy = replace(
             base_strategy,
             title=self.planned_day.working_title,
-            hook=self.planned_day.content_angle,
+            hook=self.planned_day.hook or self.planned_day.content_angle,
+            **(
+                {
+                    "story_structure": {
+                        "opening": format_pattern_text(
+                            planned_pattern.opening, self.planned_day.topic
+                        ),
+                        "escalation": format_pattern_text(
+                            planned_pattern.escalation, self.planned_day.topic
+                        ),
+                        "takeaway": format_pattern_text(
+                            planned_pattern.takeaway, self.planned_day.topic
+                        ),
+                    },
+                    "visual_direction": format_pattern_text(
+                        planned_pattern.visual_direction, self.planned_day.topic
+                    ),
+                }
+                if planned_pattern
+                else {}
+            ),
         )
         package = ContentPackage(
             topic=self.planned_day.topic,
@@ -172,7 +196,12 @@ class PipelineOrchestrator:
             raise ValueError(f"No content plan contains target date {target_date.isoformat()}.")
         if len(matches) > 1:
             raise ValueError(f"Multiple content plans contain target date {target_date.isoformat()}.")
-        return matches[0]
+        plan, planned_day = matches[0]
+        if planned_day.status == "needs_review":
+            raise ValueError(
+                f"Planned content for {target_date.isoformat()} requires editorial review."
+            )
+        return plan, planned_day
 
     def _schedule_or_find(self, package_path: Path, target_date: date) -> QueueItem:
         scheduled_for = datetime.combine(

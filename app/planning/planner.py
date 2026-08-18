@@ -2,11 +2,21 @@
 
 import json
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Callable
 
+from app.content_engine import ContentScoringEngine, ContentStrategyEngine
+from app.content_engine.content_quality import (
+    CONTENT_ANGLE_PATTERNS,
+    editorial_variant,
+    format_pattern_text,
+    has_editorial_profile,
+    pattern_for,
+    pattern_for_angle,
+    rewrite_editorial_variant,
+)
 from app.planning.storage import WeeklyPlanStorage
 
 
@@ -29,18 +39,8 @@ class ContentPillar:
         return cls(
             name=clean_name,
             objective=f"Help curious learners understand {clean_name.lower()} through visual storytelling.",
-            title_patterns=(
-                "A Visual Guide to {topic}",
-                "{topic}: The Big Picture",
-                "Understanding {topic} at a Glance",
-                "A New Way to See {topic}",
-            ),
-            angles=(
-                "Scale and perspective",
-                "A surprising everyday comparison",
-                "Three ideas explained visually",
-                "A misconception made clear",
-            ),
+            title_patterns=tuple(pattern.title for pattern in CONTENT_ANGLE_PATTERNS),
+            angles=tuple(pattern.angle for pattern in CONTENT_ANGLE_PATTERNS),
         )
 
 
@@ -65,6 +65,10 @@ class PlannedDay:
     working_title: str
     content_angle: str
     objective: str
+    hook: str | None = None
+    angle_pattern: str | None = None
+    quality_score: int | None = None
+    quality_rewritten: bool = False
     status: str = "planned"
 
     @classmethod
@@ -85,8 +89,12 @@ class PlannedDay:
             value = getattr(self, field_name)
             if not isinstance(value, str) or not value.strip():
                 raise ValueError(f"Planned day {field_name} is required.")
-        if self.status != "planned":
-            raise ValueError("New content plan entries must use planned status.")
+        if self.hook is not None and (not isinstance(self.hook, str) or not self.hook.strip()):
+            raise ValueError("Planned day hook must be a non-empty string when provided.")
+        if self.quality_score is not None and not 1 <= self.quality_score <= 10:
+            raise ValueError("Planned day quality score must be between 1 and 10.")
+        if self.status not in {"planned", "needs_review"}:
+            raise ValueError("Content plan entries must use planned or needs_review status.")
 
 
 @dataclass(frozen=True)
@@ -173,6 +181,7 @@ class ContentPlanner:
         recent_titles, recent_angles = self._recent_history(exclude_start_date=start_date)
         start_index = start_date.toordinal() % len(self.pillars)
         days = []
+        used_headline_structures = set()
         for offset in range(7):
             publish_date = start_date + timedelta(days=offset)
             pillar = self.pillars[(start_index + offset) % len(self.pillars)]
@@ -190,15 +199,79 @@ class ContentPlanner:
                 pillar.name,
                 value_type="angle",
             )
-            recent_titles.add(self._normalize(title))
-            recent_angles.add(self._normalize(angle))
+            initial_pattern = pattern_for_angle(angle) or pattern_for(pillar.name, offset)
+            pattern = initial_pattern
+            variant = editorial_variant(pillar.name, pattern)
+            quality_score = self._quality_score(pillar.name, variant.title, variant.hook, pattern)
+            needs_rewrite = (
+                pattern.name in used_headline_structures
+                or self._normalize(variant.title) in recent_titles
+                or self._normalize(variant.hook) in recent_angles
+                or quality_score < 6
+            )
+            if needs_rewrite:
+                pattern_index = CONTENT_ANGLE_PATTERNS.index(pattern)
+                alternatives = []
+                same_structure_rewrite = rewrite_editorial_variant(pillar.name, pattern)
+                if same_structure_rewrite is not None:
+                    rewrite_score = self._quality_score(
+                        pillar.name,
+                        same_structure_rewrite.title,
+                        same_structure_rewrite.hook,
+                        pattern,
+                    )
+                    if (
+                        self._normalize(same_structure_rewrite.title) not in recent_titles
+                        and self._normalize(same_structure_rewrite.hook) not in recent_angles
+                    ):
+                        alternatives.append(
+                            (rewrite_score, 0, pattern, same_structure_rewrite)
+                        )
+                for rewrite_offset in range(1, len(CONTENT_ANGLE_PATTERNS)):
+                    candidate_pattern = CONTENT_ANGLE_PATTERNS[
+                        (pattern_index + rewrite_offset) % len(CONTENT_ANGLE_PATTERNS)
+                    ]
+                    candidate_variant = editorial_variant(pillar.name, candidate_pattern)
+                    if (
+                        candidate_pattern.name in used_headline_structures
+                        or self._normalize(candidate_variant.title) in recent_titles
+                        or self._normalize(candidate_variant.hook) in recent_angles
+                    ):
+                        continue
+                    candidate_score = self._quality_score(
+                        pillar.name,
+                        candidate_variant.title,
+                        candidate_variant.hook,
+                        candidate_pattern,
+                    )
+                    alternatives.append(
+                        (
+                            candidate_score,
+                            -rewrite_offset,
+                            candidate_pattern,
+                            candidate_variant,
+                        )
+                    )
+                if alternatives:
+                    quality_score, _, pattern, variant = max(
+                        alternatives, key=lambda candidate: (candidate[0], candidate[1])
+                    )
+            status = "planned" if quality_score >= 6 else "needs_review"
+            used_headline_structures.add(pattern.name)
+            recent_titles.add(self._normalize(variant.title))
+            recent_angles.add(self._normalize(variant.hook))
             days.append(
                 PlannedDay(
                     publish_date=publish_date.isoformat(),
                     topic=pillar.name,
-                    working_title=title,
-                    content_angle=angle,
+                    working_title=variant.title,
+                    content_angle=pattern.name,
                     objective=pillar.objective,
+                    hook=variant.hook,
+                    angle_pattern=pattern.name,
+                    quality_score=quality_score,
+                    quality_rewritten=needs_rewrite,
+                    status=status,
                 )
             )
         created_at = self.clock()
@@ -212,6 +285,23 @@ class ContentPlanner:
         )
         self.storage.save(plan, replace=replace)
         return plan
+
+    @staticmethod
+    def _quality_score(topic: str, title: str, hook: str, pattern) -> int:
+        base = ContentStrategyEngine().create_strategy(topic)
+        strategy = replace(
+            base,
+            title=title,
+            hook=hook,
+            story_structure={
+                "opening": format_pattern_text(pattern.opening, topic),
+                "escalation": format_pattern_text(pattern.escalation, topic),
+                "takeaway": format_pattern_text(pattern.takeaway, topic),
+            },
+            visual_direction=format_pattern_text(pattern.visual_direction, topic),
+        )
+        score = ContentScoringEngine().score(strategy).overall
+        return score if has_editorial_profile(topic) else max(1, score - 1)
 
     def show_weekly_plan(self, start_date: date) -> WeeklyPlan:
         return self.storage.load(start_date)
@@ -262,10 +352,12 @@ class ContentPlanner:
             raise ValueError(f"Content pillar {topic!r} has no {value_type} variants.")
         start_index = publish_date.toordinal() % len(candidates)
         for offset in range(len(candidates)):
-            candidate = candidates[(start_index + offset) % len(candidates)].format(topic=topic)
+            candidate = format_pattern_text(
+                candidates[(start_index + offset) % len(candidates)], topic
+            )
             if self._normalize(candidate) not in used:
                 return candidate
-        base = candidates[start_index].format(topic=topic)
+        base = format_pattern_text(candidates[start_index], topic)
         fallback = f"{base} — {topic}, {publish_date.isoformat()}"
         sequence = 2
         while self._normalize(fallback) in used:

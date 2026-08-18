@@ -271,3 +271,35 @@ Local preflight remains offline:
 Both preflight and live workflow runs write a sanitized GitHub Actions job summary. Generated
 images continue to come only from the prior Hosted Runtime artifact; publication logs are stored
 as a diagnostic artifact and neither is committed to the state branch.
+
+## Content Quality V1
+
+MindScale's default editorial generation remains deterministic, local, and zero-cost. New topics
+rotate through seven curiosity-led frames: scale/comparison, counterintuitive fact, what-if
+scenario, hidden mechanism, timeline/transformation, pattern discovery, and boundary/threshold.
+The planner uses the same pattern library, so planned titles and angles remain aligned with the
+content strategy that Automation and Pipeline Orchestrator consume.
+
+Generic headings such as `What Makes X So Fascinating?`, `A Visual Guide to X`, and
+`Understanding X at a Glance` are detected and rewritten before Pinterest copy is produced.
+Descriptions now integrate topic-specific search phrases naturally and include a relevant
+save/share prompt. Image directions specify the composition, visual sequence, focal hierarchy,
+depth, scale cues, negative space, lighting, and exclusions needed by the existing Pillow/template
+path; no image-generation service or model was added.
+
+Content scoring now evaluates six independent editorial dimensions from 1–10:
+
+- Curiosity
+- Specificity
+- Novelty
+- Emotional impact/resonance
+- Shareability/save potential
+- Visual storytelling potential
+
+The persisted score object also includes a rounded overall score. Generic language receives an
+explicit penalty, allowing weak concepts to score materially below specific, visual, novel ideas.
+Planner angle labels remain internal metadata; publish-facing hooks are stored separately as
+natural prose. The planner also applies a headline-structure diversity penalty across each week.
+Ideas below an overall score of 6 receive one deterministic rewrite pass. If the rewritten idea
+still scores below 6, its day is persisted as `needs_review`, and Pipeline Orchestrator refuses to
+generate or queue it until it has been editorially resolved.

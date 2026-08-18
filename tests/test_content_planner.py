@@ -49,7 +49,9 @@ class ContentPlannerTests(unittest.TestCase):
             self.assertTrue(day.working_title)
             self.assertTrue(day.content_angle)
             self.assertTrue(day.objective)
-            self.assertEqual(day.status, "planned")
+            self.assertTrue(day.hook)
+            self.assertIsNotNone(day.quality_score)
+            self.assertIn(day.status, {"planned", "needs_review"})
 
     def test_configurable_pillars_never_repeat_on_consecutive_days(self):
         pillars = (ContentPillar.generic("Science"), ContentPillar.generic("Mindfulness"))
@@ -67,7 +69,7 @@ class ContentPlannerTests(unittest.TestCase):
             record = {
                 "publish_date": f"2026-08-{10 + index:02d}",
                 "content_package": {
-                    "strategy": {"title": day.working_title},
+                    "strategy": {"title": day.working_title, "hook": day.hook},
                     "local_editorial_angle": day.content_angle,
                 },
             }
@@ -78,9 +80,9 @@ class ContentPlannerTests(unittest.TestCase):
         planned = self.planner().create_weekly_plan(self.start_date)
 
         old_titles = {day.working_title.casefold() for day in baseline.days}
-        old_angles = {day.content_angle.casefold() for day in baseline.days}
+        old_hooks = {day.hook.casefold() for day in baseline.days}
         self.assertTrue(all(day.working_title.casefold() not in old_titles for day in planned.days))
-        self.assertTrue(all(day.content_angle.casefold() not in old_angles for day in planned.days))
+        self.assertTrue(all(day.hook.casefold() not in old_hooks for day in planned.days))
 
     def test_plan_is_persisted_as_local_json(self):
         plan = self.planner().create_weekly_plan(self.start_date)
