@@ -16,6 +16,7 @@ class StateTransferReport:
     content_plans: int = 0
     pipeline_states: int = 0
     content_packages: int = 0
+    publication_attempts: int = 0
     queue_present: bool = False
     fresh: bool = False
 
@@ -52,6 +53,11 @@ class HostedRuntimeStateAdapter:
             package_count = self._export_directory(
                 self.output_packages, temporary / "content_packages", "package"
             )
+            attempt_count = self._export_directory(
+                self.local_runtime / "publication_attempts",
+                temporary / "publication_attempts",
+                "attempt",
+            )
             queue_source = self.local_runtime / "publication_queue.json"
             queue_present = queue_source.is_file()
             if queue_present:
@@ -70,6 +76,7 @@ class HostedRuntimeStateAdapter:
                     "content_plans": plan_count,
                     "pipeline_states": pipeline_count,
                     "content_packages": package_count,
+                    "publication_attempts": attempt_count,
                     "queue_present": queue_present,
                 },
             }
@@ -82,6 +89,7 @@ class HostedRuntimeStateAdapter:
                 content_plans=plan_count,
                 pipeline_states=pipeline_count,
                 content_packages=package_count,
+                publication_attempts=attempt_count,
                 queue_present=queue_present,
             )
         finally:
@@ -106,6 +114,7 @@ class HostedRuntimeStateAdapter:
             plan_count = int(counts.get("content_plans", 0))
             pipeline_count = int(counts.get("pipeline_states", 0))
             package_count = int(counts.get("content_packages", 0))
+            attempt_count = int(counts.get("publication_attempts", 0))
         except (TypeError, ValueError) as error:
             raise ValueError("Hosted runtime snapshot manifest counts are invalid.") from error
 
@@ -125,6 +134,13 @@ class HostedRuntimeStateAdapter:
                 source / "content_packages", self.output_packages, "package"
             )
         )
+        transfers.extend(
+            self._collect_directory_transfers(
+                source / "publication_attempts",
+                self.local_runtime / "publication_attempts",
+                "attempt",
+            )
+        )
         queue_source = source / "publication_queue.json"
         if queue_source.is_file():
             transfers.append(
@@ -141,6 +157,7 @@ class HostedRuntimeStateAdapter:
             content_plans=plan_count,
             pipeline_states=pipeline_count,
             content_packages=package_count,
+            publication_attempts=attempt_count,
             queue_present=queue_source.is_file(),
         )
 

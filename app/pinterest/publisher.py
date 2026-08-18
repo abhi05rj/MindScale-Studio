@@ -1,25 +1,21 @@
 """Content-package to Pinterest publication orchestration."""
 
-import base64
-import ipaddress
 from dataclasses import dataclass
 from datetime import date, datetime, timezone
-from pathlib import Path
-from urllib.parse import urlparse
-
-from PIL import Image, UnidentifiedImageError
 
 from app.content_engine import ContentStorage
-from app.pinterest.client import PinterestApiClient
+from app.pinterest.client import PinterestApiClient, PinterestApiError
 from app.pinterest.config import PinterestConfig
-from app.runtime_paths import resolve_runtime_reference
-
-
-class PinterestPayloadError(ValueError):
-    pass
+from app.pinterest.payload import PinterestPayloadBuilder, PinterestPayloadError
 
 
 class DuplicatePinError(RuntimeError):
+    pass
+
+
+class PublicationOutcomeUnknownError(RuntimeError):
+    """The create request may have succeeded, so retrying could create a duplicate Pin."""
+
     pass
 
 
@@ -62,97 +58,40 @@ class PinterestPublisher:
             self.config.validate_for_live_publish()
             self._persist(publish_date, "publishing")
             self.client.get_board(self.config.board_id)
-            response = self.client.create_pin(payload)
+            try:
+                response = self.client.create_pin(payload)
+            except PinterestApiError as error:
+                if error.status_code is None or error.status_code >= 500:
+                    self._raise_unknown(publish_date, str(error), error)
+                raise
+            except Exception as error:
+                self._raise_unknown(publish_date, str(error), error)
+            if not isinstance(response, dict):
+                self._raise_unknown(publish_date, "Pinterest create Pin response was invalid")
             pin_id = response.get("id")
             if not isinstance(pin_id, str) or not pin_id:
-                raise PinterestPayloadError("Pinterest create Pin response did not contain a Pin ID")
+                error = "Pinterest create Pin response did not contain a Pin ID"
+                self._raise_unknown(publish_date, error)
             self._persist(publish_date, "published", pin_id=pin_id)
             return PublicationResult("published", payload, pin_id)
-        except (DuplicatePinError, KeyboardInterrupt, SystemExit):
+        except (DuplicatePinError, PublicationOutcomeUnknownError, KeyboardInterrupt, SystemExit):
             raise
         except Exception as error:
             self._persist(publish_date, "failed", error=str(error))
             raise
 
     def build_payload(self, record: dict) -> dict:
-        pinterest = record.get("content_package", {}).get("pinterest", {})
-        image_path = resolve_runtime_reference(record.get("image", {}).get("final_path", ""))
-        title = pinterest.get("pinterest_title")
-        description = pinterest.get("pinterest_description")
-        destination_url = pinterest.get("destination_url") or pinterest.get("pinterest_destination_url")
-        missing = [
-            name
-            for name, value in (
-                ("title", title),
-                ("description", description),
-                ("PINTEREST_BOARD_ID", self.config.board_id),
-            )
-            if not isinstance(value, str) or not value.strip()
-        ]
-        if missing:
-            raise PinterestPayloadError("Missing publishing payload fields: " + ", ".join(missing))
-        if len(title.strip()) > 100:
-            raise PinterestPayloadError("Pinterest title must be 100 characters or fewer")
-        if len(description.strip()) > 500:
-            raise PinterestPayloadError("Pinterest description must be 500 characters or fewer")
-        clean_destination_url = None
-        if isinstance(destination_url, str) and destination_url.strip():
-            clean_destination_url = destination_url.strip()
-            self._validate_public_destination_url(clean_destination_url)
-        if not image_path.is_file():
-            raise PinterestPayloadError(f"Final Pinterest image does not exist: {image_path}")
-        try:
-            with Image.open(image_path) as image:
-                image.verify()
-                if image.format != "PNG":
-                    raise PinterestPayloadError("Final Pinterest image must be a PNG")
-        except (UnidentifiedImageError, OSError) as error:
-            raise PinterestPayloadError(f"Final Pinterest image is invalid: {image_path}") from error
+        return PinterestPayloadBuilder(self.config).build(record)
 
-        encoded_image = base64.b64encode(image_path.read_bytes()).decode("ascii")
-        payload = {
-            "board_id": self.config.board_id,
-            "title": title.strip(),
-            "description": description.strip(),
-            "media_source": {
-                "source_type": "image_base64",
-                "content_type": "image/png",
-                "data": encoded_image,
-            },
-        }
-        if clean_destination_url is not None:
-            payload["link"] = clean_destination_url
-        return payload
-
-    @staticmethod
-    def _validate_public_destination_url(destination_url: str) -> None:
-        parsed = urlparse(destination_url)
-        hostname = parsed.hostname
-        if (
-            parsed.scheme not in {"http", "https"}
-            or not hostname
-            or parsed.username is not None
-            or parsed.password is not None
-            or hostname.casefold() == "localhost"
-            or hostname.casefold().endswith(".local")
-        ):
-            raise PinterestPayloadError(
-                "Pinterest destination URL must be an explicitly configured public HTTP(S) URL"
-            )
+    def _raise_unknown(
+        self, publish_date: date, message: str, cause: Exception | None = None
+    ) -> None:
         try:
-            address = ipaddress.ip_address(hostname)
-        except ValueError:
-            # A non-local hostname with a dot is structurally public. Deliberately
-            # avoid DNS resolution here so dry-run remains fully offline.
-            if "." not in hostname:
-                raise PinterestPayloadError(
-                    "Pinterest destination URL must be an explicitly configured public HTTP(S) URL"
-                )
-        else:
-            if not address.is_global:
-                raise PinterestPayloadError(
-                    "Pinterest destination URL must be an explicitly configured public HTTP(S) URL"
-                )
+            self._persist(publish_date, "publication_unknown", error=message)
+        except Exception:
+            # The caller's independent attempt state must still be told never to retry.
+            pass
+        raise PublicationOutcomeUnknownError(message) from cause
 
     def _persist(
         self,

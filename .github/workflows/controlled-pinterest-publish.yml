@@ -1,0 +1,192 @@
+name: Controlled Pinterest Trial Publication
+
+on:
+  workflow_dispatch:
+    inputs:
+      queue_item_id:
+        description: "Durable publication queue item UUID"
+        required: true
+        type: string
+      mode:
+        description: "Preflight validates offline; live permits one controlled attempt"
+        required: true
+        default: preflight
+        type: choice
+        options:
+          - preflight
+          - live
+      confirm_live_publish:
+        description: "Must be explicitly enabled for live publication"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: mindscale-production
+  cancel-in-progress: false
+
+env:
+  TZ: UTC
+  PYTHONUNBUFFERED: "1"
+  RUNTIME_BRANCH: runtime-state
+
+jobs:
+  controlled-publication:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Enforce explicit live confirmation
+        env:
+          MODE: ${{ inputs.mode }}
+          CONFIRMED: ${{ inputs.confirm_live_publish }}
+        run: |
+          if [ "$MODE" = "live" ] && [ "$CONFIRMED" != "true" ]; then
+            echo "Live publication is OFF: confirm_live_publish was not explicitly enabled." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
+      - name: Check out application
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install standard dependencies
+        run: python -m pip install -r requirements.txt
+
+      - name: Check out authoritative runtime state
+        id: state
+        run: |
+          STATE_WORKTREE="$RUNNER_TEMP/mindscale-runtime-state"
+          git fetch origin "$RUNTIME_BRANCH:$RUNTIME_BRANCH"
+          git worktree add "$STATE_WORKTREE" "$RUNTIME_BRANCH"
+          test -d "$STATE_WORKTREE/state"
+          echo "worktree=$STATE_WORKTREE" >> "$GITHUB_OUTPUT"
+
+      - name: Read image artifact pointer
+        id: prior_artifact
+        env:
+          STATE_PATH: ${{ steps.state.outputs.worktree }}/state
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          from app.hosted_runtime import HostedRuntimeStateAdapter
+
+          run_id, name = HostedRuntimeStateAdapter().read_image_artifact(Path(os.environ["STATE_PATH"]))
+          if not run_id or not name:
+              raise SystemExit("Authoritative state has no image artifact pointer.")
+          with Path(os.environ["GITHUB_OUTPUT"]).open("a", encoding="utf-8") as output:
+              output.write(f"run_id={run_id}\n")
+              output.write(f"name={name}\n")
+          PY
+
+      - name: Restore final PNGs
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ steps.prior_artifact.outputs.name }}
+          path: output/images
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ steps.prior_artifact.outputs.run_id }}
+
+      - name: Import and validate authoritative state
+        id: restored_state
+        run: |
+          python -m app.hosted_runtime.cli import-state --source "${{ steps.state.outputs.worktree }}/state"
+          python -m app.hosted_runtime.cli validate-images
+
+      - name: Validate production credentials before live execution
+        if: inputs.mode == 'live'
+        env:
+          PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
+          PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
+          PINTEREST_BOARD_ID: ${{ vars.PINTEREST_BOARD_ID }}
+        run: |
+          for name in PINTEREST_APP_ID PINTEREST_APP_SECRET PINTEREST_ACCESS_TOKEN PINTEREST_REFRESH_TOKEN PINTEREST_BOARD_ID; do
+            if [ -z "${!name}" ]; then
+              echo "Missing required production configuration: $name" | tee -a "$GITHUB_STEP_SUMMARY"
+              exit 1
+            fi
+          done
+
+      - name: Run controlled publication command
+        id: publication
+        env:
+          PINTEREST_APP_ID: ${{ secrets.PINTEREST_APP_ID }}
+          PINTEREST_APP_SECRET: ${{ secrets.PINTEREST_APP_SECRET }}
+          PINTEREST_ACCESS_TOKEN: ${{ secrets.PINTEREST_ACCESS_TOKEN }}
+          PINTEREST_REFRESH_TOKEN: ${{ secrets.PINTEREST_REFRESH_TOKEN }}
+          PINTEREST_BOARD_ID: ${{ vars.PINTEREST_BOARD_ID }}
+          QUEUE_ITEM_ID: ${{ inputs.queue_item_id }}
+          MODE: ${{ inputs.mode }}
+          CONFIRMED: ${{ inputs.confirm_live_publish }}
+        run: |
+          mkdir -p .local-runtime/hosted
+          set +e
+          python -m app.production_publication.cli \
+            --queue-item-id "$QUEUE_ITEM_ID" \
+            --mode "$MODE" \
+            --confirm-live-publish "$CONFIRMED" 2>&1 | tee .local-runtime/hosted/controlled-publication.log
+          PUBLICATION_EXIT=${PIPESTATUS[0]}
+          set -e
+          echo "exit_code=$PUBLICATION_EXIT" >> "$GITHUB_OUTPUT"
+
+      - name: Upload sanitized publication diagnostics
+        if: always() && steps.publication.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: controlled-publication-${{ github.run_id }}
+          path: .local-runtime/hosted/controlled-publication.log
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Export durable publication state
+        id: export_state
+        if: always() && steps.restored_state.outcome == 'success' && steps.publication.outcome == 'success'
+        run: >-
+          python -m app.hosted_runtime.cli export-state
+          --destination "${{ steps.state.outputs.worktree }}/state"
+          --image-artifact-run-id "${{ steps.prior_artifact.outputs.run_id }}"
+          --image-artifact-name "${{ steps.prior_artifact.outputs.name }}"
+
+      - name: Verify JSON-only durable state
+        if: always() && steps.export_state.outcome == 'success'
+        env:
+          STATE_PATH: ${{ steps.state.outputs.worktree }}/state
+        run: |
+          if find "$STATE_PATH" -type f ! -name '*.json' -print -quit | grep -q .; then
+            echo "Runtime state contains a non-JSON file." >&2
+            exit 1
+          fi
+
+      - name: Persist publication state
+        if: always() && steps.export_state.outcome == 'success'
+        env:
+          STATE_WORKTREE: ${{ steps.state.outputs.worktree }}
+        run: |
+          git -C "$STATE_WORKTREE" config user.name "github-actions[bot]"
+          git -C "$STATE_WORKTREE" config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C "$STATE_WORKTREE" add state
+          if git -C "$STATE_WORKTREE" diff --cached --quiet; then
+            echo "Durable publication state is unchanged."
+          else
+            git -C "$STATE_WORKTREE" commit -m "Update controlled publication state"
+            git -C "$STATE_WORKTREE" push origin "$RUNTIME_BRANCH"
+          fi
+
+      - name: Enforce controlled publication result
+        if: always()
+        env:
+          PUBLICATION_EXIT: ${{ steps.publication.outputs.exit_code }}
+        run: test "${PUBLICATION_EXIT:-1}" -eq 0

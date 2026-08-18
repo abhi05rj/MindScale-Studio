@@ -231,3 +231,43 @@ The runtime-state branch is intentionally a V1 metadata store. Its serialized wo
 concurrent writers, but branch history can grow and artifact retention can expire. Before live
 publishing is enabled, retention, branch protection/recovery, failed artifact restoration, and
 the durability of publication results must be reviewed explicitly.
+
+## Production Readiness V1
+
+The separate `.github/workflows/controlled-pinterest-publish.yml` workflow is the only hosted
+path designed to reach the Pinterest publisher. It is manual (`workflow_dispatch`) only and
+defaults to `preflight`. Selecting `live` is insufficient by itself: the operator must also set
+the independent `confirm_live_publish` input to `true`. There is no scheduled live-publishing
+trigger.
+
+Configure the workflow through GitHub without placing credentials in the repository:
+
+- Secrets: `PINTEREST_APP_ID`, `PINTEREST_APP_SECRET`, `PINTEREST_ACCESS_TOKEN`, and
+  `PINTEREST_REFRESH_TOKEN`
+- Repository/environment variable: `PINTEREST_BOARD_ID`
+
+Live mode fails before publisher construction when any required value is absent. Preflight mode
+does not require credentials and validates the selected queue item, due time, content package,
+final PNG, publication status, and absence of a prior Pin ID without constructing or invoking the
+Pinterest publisher.
+
+Controlled attempts use durable JSON records under `.local-runtime/publication_attempts/`, which
+Hosted Runtime exports to the `runtime-state` branch. The lifecycle is `ready` → `claimed` →
+`publishing` → `published`, with `failed` for a safely retryable failure and
+`publication_unknown` when a create request may have succeeded but no trustworthy result was
+received. Safe failures are limited to three explicit manual attempts. A stale `claimed` state
+can be recovered after 20 minutes; stale `publishing` becomes `publication_unknown` and is never
+automatically retried. Queue status, content-package publication metadata, attempt count, error,
+board ID, and eventual Pin ID persist in the JSON state snapshot.
+
+Local preflight remains offline:
+
+```bash
+.venv/bin/python -m app.production_publication.cli \
+  --queue-item-id QUEUE_ITEM_UUID \
+  --mode preflight
+```
+
+Both preflight and live workflow runs write a sanitized GitHub Actions job summary. Generated
+images continue to come only from the prior Hosted Runtime artifact; publication logs are stored
+as a diagnostic artifact and neither is committed to the state branch.

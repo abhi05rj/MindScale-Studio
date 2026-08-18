@@ -6,6 +6,7 @@ from app.pinterest.publisher import (
     DuplicatePinError,
     PinterestPayloadError,
     PinterestPublisher,
+    PublicationOutcomeUnknownError,
     PublicationResult,
 )
 
@@ -17,5 +18,6 @@ __all__ = [
     "PinterestConfig",
     "PinterestPayloadError",
     "PinterestPublisher",
+    "PublicationOutcomeUnknownError",
     "PublicationResult",
 ]

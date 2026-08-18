@@ -12,6 +12,7 @@ from app.hosted_runtime import HostedRuntimeStateAdapter
 from app.image_engine import FakeImageProvider
 from app.pipeline import PipelineOrchestrator, PipelineStateStorage
 from app.planning import ContentPlanner, WeeklyPlanStorage
+from app.production_publication import PublicationAttemptStorage
 from app.scheduling import PublicationQueue
 
 
@@ -100,6 +101,11 @@ class HostedRuntimeStateTests(unittest.TestCase):
             self.orchestrator(first, FakeImageProvider()).run(self.target_date)
         HostedRuntimeStateAdapter(first).export_state(snapshot)
 
+        PublicationAttemptStorage(
+            first / ".local-runtime" / "publication_attempts"
+        ).save("queue-item-1", status="failed", attempt_count=1, last_error="safe failure")
+        HostedRuntimeStateAdapter(first).export_state(snapshot)
+
         report = HostedRuntimeStateAdapter(second).import_state(snapshot)
 
         self.assertEqual(report.content_packages, 1)
@@ -107,6 +113,12 @@ class HostedRuntimeStateTests(unittest.TestCase):
         self.assertEqual(len(list(self.paths(second)["pipeline"].glob("*.json"))), 1)
         self.assertEqual(len(list(self.paths(second)["packages"].glob("*.json"))), 1)
         self.assertEqual(len(PublicationQueue(self.paths(second)["queue"]).list_items()), 1)
+        restored_attempt = PublicationAttemptStorage(
+            second / ".local-runtime" / "publication_attempts"
+        ).load("queue-item-1")
+        self.assertEqual(report.publication_attempts, 1)
+        self.assertEqual(restored_attempt["status"], "failed")
+        self.assertEqual(restored_attempt["attempt_count"], 1)
 
     def test_missing_restored_image_is_rejected_before_pipeline_execution(self):
         first = self.root / "first"

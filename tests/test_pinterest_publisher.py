@@ -13,6 +13,7 @@ from app.pinterest import (
     PinterestConfig,
     PinterestPayloadError,
     PinterestPublisher,
+    PublicationOutcomeUnknownError,
 )
 
 
@@ -118,6 +119,25 @@ class PinterestPublisherTests(unittest.TestCase):
         self.assertEqual(state["status"], "failed")
         self.assertEqual(state["error"], "Pinterest unavailable")
         self.assertIsNone(state["pin_id"])
+
+    def test_create_pin_transport_failure_is_persisted_as_unknown(self):
+        class AmbiguousClient(FakePinterestClient):
+            def get_board(self, board_id):
+                self.board_lookups.append(board_id)
+                return {"id": board_id}
+
+            def create_pin(self, payload):
+                self.pin_payloads.append(payload)
+                raise PinterestApiError("response lost", None)
+
+        client = AmbiguousClient()
+        with self.assertRaisesRegex(PublicationOutcomeUnknownError, "response lost"):
+            self.publisher(client).publish(self.run_date)
+
+        state = self.record()["pinterest_publication"]
+        self.assertEqual(state["status"], "publication_unknown")
+        self.assertEqual(state["error"], "response lost")
+        self.assertEqual(len(client.pin_payloads), 1)
 
     def test_existing_pin_id_prevents_duplicate_and_does_not_call_api(self):
         record = self.record()
