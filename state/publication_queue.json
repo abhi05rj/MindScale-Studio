@@ -12,6 +12,18 @@
       "attempt_count": 0,
       "last_error": null,
       "pinterest_pin_id": null
+    },
+    {
+      "id": "2b5e9c05-43bb-4231-aaec-852b51507e7c",
+      "content_package_ref": "output/content_packages/20260818T072529939671Z_time.json",
+      "content_publish_date": "2026-08-18",
+      "scheduled_for": "2026-08-18T09:00:00+00:00",
+      "platform": "pinterest",
+      "status": "scheduled",
+      "created_at": "2026-08-18T07:25:31.721347+00:00",
+      "attempt_count": 0,
+      "last_error": null,
+      "pinterest_pin_id": null
     }
   ]
 }
