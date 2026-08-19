@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-19T07:26:16.912982+00:00",
+  "publish_date": "2026-08-19",
+  "topic": "Human Perspective",
+  "content_package": {
+    "topic": "Human Perspective",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "A New Way to See Human Perspective",
+      "hook": "A misconception made clear",
+      "story_structure": {
+        "opening": "Show three apparently unrelated scenes where visual perception appears.",
+        "escalation": "Overlay the shared pattern so the connection becomes visually undeniable.",
+        "takeaway": "Give viewers one observation prompt they can use to spot the pattern themselves."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Three everyday vignettes linked by one repeating geometry for visual perception; subtle-to-bright pattern reveal, unified color cue, discovery-focused composition",
+      "pinterest_keywords": [
+        "human perspective",
+        "human perspective facts",
+        "how human perspective works",
+        "pattern discovery infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "A Pattern in Human Perception Hiding in Plain Sight",
+      "pinterest_description": "A misconception made clear Discover human perspective, human perspective facts, how human perspective works through a visual story that turns the idea into a clear, memorable mental model. Save this human perspective explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#HumanPerspective",
+        "#HumanPerspectiveFacts",
+        "#HowHumanPerspectiveWorks",
+        "#PatternDiscoveryInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about human perspective. Three everyday vignettes linked by one repeating geometry for visual perception; subtle-to-bright pattern reveal, unified color cue, discovery-focused composition. Opening visual: Show three apparently unrelated scenes where visual perception appears. Visual progression: Overlay the shared pattern so the connection becomes visually undeniable. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 1,
+      "specificity": 4,
+      "novelty": 3,
+      "emotional_impact": 4,
+      "shareability": 4,
+      "visual_storytelling": 4,
+      "overall": 3
+    },
+    "local_editorial_angle": "A misconception made clear"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-19_human-perspective_background.png",
+    "final_path": "output/images/2026-08-19_human-perspective_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739847,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
