@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-20T07:29:37.116417+00:00",
+  "publish_date": "2026-08-20",
+  "topic": "Ocean",
+  "content_package": {
+    "topic": "Ocean",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "A Visual Guide to Ocean",
+      "hook": "Scale and perspective",
+      "story_structure": {
+        "opening": "Begin with the familiar visible result of deep-ocean circulation before revealing what is hidden.",
+        "escalation": "Use a cutaway sequence to connect trigger, mechanism, and visible outcome.",
+        "takeaway": "Finish by reconnecting the hidden mechanism to an everyday observation."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Layered cutaway of deep-ocean circulation; visible surface above, hidden mechanism below, luminous directional flow, three linked stages, precise focal hierarchy",
+      "pinterest_keywords": [
+        "ocean",
+        "ocean facts",
+        "how ocean works",
+        "hidden mechanism infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "The Hidden Chain Reaction Shaping the Ocean",
+      "pinterest_description": "Scale and perspective Discover ocean, ocean facts, how ocean works through a visual story that turns the idea into a clear, memorable mental model. Save this ocean explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Ocean",
+        "#OceanFacts",
+        "#HowOceanWorks",
+        "#HiddenMechanismInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about ocean. Layered cutaway of deep-ocean circulation; visible surface above, hidden mechanism below, luminous directional flow, three linked stages, precise focal hierarchy. Opening visual: Begin with the familiar visible result of deep-ocean circulation before revealing what is hidden. Visual progression: Use a cutaway sequence to connect trigger, mechanism, and visible outcome. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 1,
+      "specificity": 4,
+      "novelty": 4,
+      "emotional_impact": 3,
+      "shareability": 4,
+      "visual_storytelling": 5,
+      "overall": 4
+    },
+    "local_editorial_angle": "Scale and perspective"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-20_ocean_background.png",
+    "final_path": "output/images/2026-08-20_ocean_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739848,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
