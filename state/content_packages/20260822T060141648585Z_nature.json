@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-22T06:01:41.648585+00:00",
+  "publish_date": "2026-08-22",
+  "topic": "Nature",
+  "content_package": {
+    "topic": "Nature",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "Understanding Nature at a Glance",
+      "hook": "Three ideas explained visually — Nature, 2026-08-22",
+      "story_structure": {
+        "opening": "Open with a forest ecosystem beside one familiar object the audience instantly recognizes.",
+        "escalation": "Move through three scale jumps, keeping the original object visible as an anchor.",
+        "takeaway": "End with one ratio that makes the scale of a forest ecosystem easy to remember and share."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Three-stage scale ladder for a forest ecosystem; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast",
+      "pinterest_keywords": [
+        "nature",
+        "nature facts",
+        "how nature works",
+        "scale/comparison infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "See Nature at True Scale: A Comparison You Can Picture",
+      "pinterest_description": "Three ideas explained visually — Nature, 2026-08-22 Discover nature, nature facts, how nature works through a visual story that turns the idea into a clear, memorable mental model. Save this nature explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Nature",
+        "#NatureFacts",
+        "#HowNatureWorks",
+        "#ScaleComparisonInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about nature. Three-stage scale ladder for a forest ecosystem; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast. Opening visual: Open with a forest ecosystem beside one familiar object the audience instantly recognizes. Visual progression: Move through three scale jumps, keeping the original object visible as an anchor. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 1,
+      "specificity": 6,
+      "novelty": 2,
+      "emotional_impact": 3,
+      "shareability": 5,
+      "visual_storytelling": 5,
+      "overall": 4
+    },
+    "local_editorial_angle": "Three ideas explained visually — Nature, 2026-08-22"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-22_nature_background.png",
+    "final_path": "output/images/2026-08-22_nature_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739850,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
