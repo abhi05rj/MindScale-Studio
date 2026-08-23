@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-23T07:21:04.824575+00:00",
+  "publish_date": "2026-08-23",
+  "topic": "Universe",
+  "content_package": {
+    "topic": "Universe",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "A New Way to See Universe",
+      "hook": "A misconception made clear — Universe, 2026-08-23",
+      "story_structure": {
+        "opening": "Present two obvious extremes with the observable universe positioned between them.",
+        "escalation": "Zoom into the transition zone and compare three signals that change at different rates.",
+        "takeaway": "End with a practical definition that is more precise than the original either-or choice."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Gradient threshold map for the observable universe; two contrasting extremes, magnified transition zone, three changing signals, elegant scientific cross-section",
+      "pinterest_keywords": [
+        "universe",
+        "universe facts",
+        "how universe works",
+        "boundary/threshold infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "Where Does the Universe End—and Something Else Begin?",
+      "pinterest_description": "A misconception made clear — Universe, 2026-08-23 Discover universe, universe facts, how universe works through a visual story that turns the idea into a clear, memorable mental model. Save this universe explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Universe",
+        "#UniverseFacts",
+        "#HowUniverseWorks",
+        "#BoundaryThresholdInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about universe. Gradient threshold map for the observable universe; two contrasting extremes, magnified transition zone, three changing signals, elegant scientific cross-section. Opening visual: Present two obvious extremes with the observable universe positioned between them. Visual progression: Zoom into the transition zone and compare three signals that change at different rates. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 1,
+      "specificity": 6,
+      "novelty": 5,
+      "emotional_impact": 2,
+      "shareability": 3,
+      "visual_storytelling": 5,
+      "overall": 4
+    },
+    "local_editorial_angle": "A misconception made clear — Universe, 2026-08-23"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-23_universe_background.png",
+    "final_path": "output/images/2026-08-23_universe_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739851,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
