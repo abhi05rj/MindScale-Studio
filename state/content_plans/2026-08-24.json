@@ -1,0 +1,91 @@
+{
+  "start_date": "2026-08-24",
+  "created_at": "2026-08-24T05:57:05.222682+00:00",
+  "status": "planned",
+  "days": [
+    {
+      "publish_date": "2026-08-24",
+      "topic": "Space",
+      "working_title": "Space Isn’t Completely Silent—It’s Full of Waves We Can’t Hear",
+      "content_angle": "counterintuitive fact",
+      "objective": "Help curious learners understand space through visual storytelling.",
+      "hook": "Vacuum blocks ordinary sound, yet pressure waves still move through plasma, gas, and magnetic fields across space.",
+      "angle_pattern": "counterintuitive fact",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-25",
+      "topic": "Time",
+      "working_title": "If Time Ran 10× Faster, Your Body Would Notice First",
+      "content_angle": "what-if scenario",
+      "objective": "Help curious learners understand time through visual storytelling.",
+      "hook": "A faster clock would reshape sleep, healing, memory, and aging before society could adjust its schedule.",
+      "angle_pattern": "what-if scenario",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-26",
+      "topic": "Human Perspective",
+      "working_title": "Your Brain Edits Reality Before You Ever See It",
+      "content_angle": "hidden mechanism",
+      "objective": "Help curious learners understand human perspective through visual storytelling.",
+      "hook": "Every glance is compressed, corrected, and partly invented before it reaches conscious awareness.",
+      "angle_pattern": "hidden mechanism",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-27",
+      "topic": "Ocean",
+      "working_title": "How One Drop Can Spend 1,000 Years Crossing the Ocean",
+      "content_angle": "timeline/transformation",
+      "objective": "Help curious learners understand ocean through visual storytelling.",
+      "hook": "A single parcel of seawater can circle the planet on a journey longer than many civilizations have existed.",
+      "angle_pattern": "timeline/transformation",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-28",
+      "topic": "Brain",
+      "working_title": "Look Away for 1 Second—Your Brain Rebuilds the Scene",
+      "content_angle": "pattern discovery",
+      "objective": "Help curious learners understand brain through visual storytelling.",
+      "hook": "When attention breaks, the brain fills the missing moment with its best prediction rather than a faithful recording.",
+      "angle_pattern": "pattern discovery",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-29",
+      "topic": "Nature",
+      "working_title": "The Invisible Threshold Between a Tree Stand and a Living Forest",
+      "content_angle": "boundary/threshold",
+      "objective": "Help curious learners understand nature through visual storytelling.",
+      "hook": "A collection of trees becomes a resilient forest only when hidden relationships begin recycling water, nutrients, and life.",
+      "angle_pattern": "boundary/threshold",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-08-30",
+      "topic": "Universe",
+      "working_title": "The Observable Universe Is 93 Billion Light-Years Wide—So Why Is It 13.8 Billion Years Old?",
+      "content_angle": "scale/comparison",
+      "objective": "Help curious learners understand universe through visual storytelling.",
+      "hook": "Cosmic expansion makes the universe far larger than a simple light-travel calculation suggests.",
+      "angle_pattern": "scale/comparison",
+      "quality_score": 6,
+      "quality_rewritten": false,
+      "status": "planned"
+    }
+  ]
+}
