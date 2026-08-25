@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-25T05:51:08.504523+00:00",
+  "publish_date": "2026-08-25",
+  "topic": "Time",
+  "content_package": {
+    "topic": "Time",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "If Time Ran 10× Faster, Your Body Would Notice First",
+      "hook": "A faster clock would reshape sleep, healing, memory, and aging before society could adjust its schedule.",
+      "story_structure": {
+        "opening": "Establish normal time and clearly identify the single rule that will change.",
+        "escalation": "Follow three cause-and-effect consequences, increasing the stakes at each step.",
+        "takeaway": "Return to reality and show what the scenario reveals about how time actually works."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Cause-and-effect triptych for time; normal baseline on left, altered 10× world at center, cascading consequences on right, cinematic visual continuity",
+      "pinterest_keywords": [
+        "time",
+        "time facts",
+        "how time works",
+        "scale/comparison infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "If Time Ran 10× Faster, Your Body Would Notice First",
+      "pinterest_description": "A faster clock would reshape sleep, healing, memory, and aging before society could adjust its schedule. Discover time, time facts, how time works through a visual story that turns the idea into a clear, memorable mental model. Save this time explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Time",
+        "#TimeFacts",
+        "#HowTimeWorks",
+        "#ScaleComparisonInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about time. Cause-and-effect triptych for time; normal baseline on left, altered 10× world at center, cascading consequences on right, cinematic visual continuity. Opening visual: Establish normal time and clearly identify the single rule that will change. Visual progression: Follow three cause-and-effect consequences, increasing the stakes at each step. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 3,
+      "specificity": 8,
+      "novelty": 5,
+      "emotional_impact": 6,
+      "shareability": 6,
+      "visual_storytelling": 6,
+      "overall": 6
+    },
+    "local_editorial_angle": "what-if scenario"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-25_time_background.png",
+    "final_path": "output/images/2026-08-25_time_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739853,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
