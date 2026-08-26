@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-08-26",
+  "plan_start_date": "2026-08-24",
+  "topic": "Human Perspective",
+  "status": "queued",
+  "created_at": "2026-08-26T05:53:43.814538+00:00",
+  "updated_at": "2026-08-26T05:53:44.747429+00:00",
+  "content_package_ref": "output/content_packages/20260826T055343820907Z_human-perspective.json",
+  "queue_item_id": "7f3e327e-2205-4d2d-a81d-fcb40f4441b2",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-08-26T05:53:43.814538+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-08-26T05:53:43.814783+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-08-26T05:53:44.745982+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-08-26T05:53:44.747429+00:00"
+    }
+  ]
+}
