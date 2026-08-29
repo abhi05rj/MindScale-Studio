@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-08-29T11:41:25.500753+00:00",
+  "publish_date": "2026-08-29",
+  "topic": "Nature",
+  "content_package": {
+    "topic": "Nature",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "The Invisible Threshold Between a Tree Stand and a Living Forest",
+      "hook": "A collection of trees becomes a resilient forest only when hidden relationships begin recycling water, nutrients, and life.",
+      "story_structure": {
+        "opening": "Present two obvious extremes with a forest ecosystem positioned between them.",
+        "escalation": "Zoom into the transition zone and compare three signals that change at different rates.",
+        "takeaway": "End with a practical definition that is more precise than the original either-or choice."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Gradient threshold map for a forest ecosystem; two contrasting extremes, magnified transition zone, three changing signals, elegant scientific cross-section",
+      "pinterest_keywords": [
+        "nature",
+        "nature facts",
+        "how nature works",
+        "scale/comparison infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "The Invisible Threshold Between a Tree Stand and a Living Forest",
+      "pinterest_description": "A collection of trees becomes a resilient forest only when hidden relationships begin recycling water, nutrients, and life. Discover nature, nature facts, how nature works through a visual story that turns the idea into a clear, memorable mental model. Save this nature explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Nature",
+        "#NatureFacts",
+        "#HowNatureWorks",
+        "#ScaleComparisonInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about nature. Gradient threshold map for a forest ecosystem; two contrasting extremes, magnified transition zone, three changing signals, elegant scientific cross-section. Opening visual: Present two obvious extremes with a forest ecosystem positioned between them. Visual progression: Zoom into the transition zone and compare three signals that change at different rates. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 5,
+      "specificity": 6,
+      "novelty": 6,
+      "emotional_impact": 5,
+      "shareability": 5,
+      "visual_storytelling": 7,
+      "overall": 6
+    },
+    "local_editorial_angle": "boundary/threshold"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-08-29_nature_background.png",
+    "final_path": "output/images/2026-08-29_nature_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739857,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
