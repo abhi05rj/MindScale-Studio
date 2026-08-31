@@ -1,0 +1,91 @@
+{
+  "start_date": "2026-08-31",
+  "created_at": "2026-08-31T11:39:26.895285+00:00",
+  "status": "planned",
+  "days": [
+    {
+      "publish_date": "2026-08-31",
+      "topic": "Space",
+      "working_title": "What If We Experienced Outer Space at 10× Scale?",
+      "content_angle": "what-if scenario",
+      "objective": "Help curious learners understand space through visual storytelling.",
+      "hook": "Changing one condition turns the vacuum of space into a thought experiment with surprising consequences.",
+      "angle_pattern": "what-if scenario",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-01",
+      "topic": "Time",
+      "working_title": "The Hidden Chain Reaction Shaping Time",
+      "content_angle": "hidden mechanism",
+      "objective": "Help curious learners understand time through visual storytelling.",
+      "hook": "What looks simple on the surface of time depends on an invisible sequence underneath.",
+      "angle_pattern": "hidden mechanism",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-02",
+      "topic": "Human Perspective",
+      "working_title": "5 Turning Points That Shaped Human Perception",
+      "content_angle": "timeline/transformation",
+      "objective": "Help curious learners understand human perspective through visual storytelling.",
+      "hook": "Five turning points reveal how visual perception became what we recognize today.",
+      "angle_pattern": "timeline/transformation",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-03",
+      "topic": "Ocean",
+      "working_title": "A Pattern in the Ocean Hiding in Plain Sight",
+      "content_angle": "pattern discovery",
+      "objective": "Help curious learners understand ocean through visual storytelling.",
+      "hook": "Once you notice this repeating pattern in deep-ocean circulation, ordinary scenes become evidence.",
+      "angle_pattern": "pattern discovery",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-04",
+      "topic": "Brain",
+      "working_title": "Where Does the Human Brain End—and Something Else Begin?",
+      "content_angle": "boundary/threshold",
+      "objective": "Help curious learners understand brain through visual storytelling.",
+      "hook": "The boundary around the brain's attention system is less like a line and more like a revealing transition zone.",
+      "angle_pattern": "boundary/threshold",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-05",
+      "topic": "Nature",
+      "working_title": "A Teaspoon of Forest Soil Can Hold More Life Than a City Block",
+      "content_angle": "scale/comparison",
+      "objective": "Help curious learners understand nature through visual storytelling.",
+      "hook": "The smallest patch of healthy soil can contain an ecosystem dense enough to change how you see the ground beneath you.",
+      "angle_pattern": "scale/comparison",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-06",
+      "topic": "Universe",
+      "working_title": "One Fact About the Universe That Sounds Wrong—but Isn't",
+      "content_angle": "counterintuitive fact",
+      "objective": "Help curious learners understand universe through visual storytelling.",
+      "hook": "The most useful fact about the observable universe initially feels like it should be impossible.",
+      "angle_pattern": "counterintuitive fact",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    }
+  ]
+}
