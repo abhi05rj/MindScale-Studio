@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-09-06",
+  "plan_start_date": "2026-08-31",
+  "topic": "Universe",
+  "status": "queued",
+  "created_at": "2026-09-06T09:30:15.509459+00:00",
+  "updated_at": "2026-09-06T09:30:16.587160+00:00",
+  "content_package_ref": "output/content_packages/20260906T093015513123Z_universe.json",
+  "queue_item_id": "9e7d2a41-8c9c-4603-8963-539b33424c7a",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-09-06T09:30:15.509459+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-09-06T09:30:15.509707+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-09-06T09:30:16.585070+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-09-06T09:30:16.587160+00:00"
+    }
+  ]
+}
