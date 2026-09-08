@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-08T09:48:39.381195+00:00",
+  "publish_date": "2026-09-08",
+  "topic": "Time",
+  "content_package": {
+    "topic": "Time",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "5 Turning Points That Shaped Time",
+      "hook": "Five turning points reveal how time became what we recognize today.",
+      "story_structure": {
+        "opening": "Start at the earliest recognizable state of time with a clear time marker.",
+        "escalation": "Advance through five transformations, making the change between stages visually explicit.",
+        "takeaway": "End in the present with one clue about what may change next."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Five-panel transformation timeline for time; left-to-right progression, consistent subject silhouette, changing environment, distinct era cues, strong final-state emphasis",
+      "pinterest_keywords": [
+        "time",
+        "time facts",
+        "how time works",
+        "scale/comparison infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "5 Turning Points That Shaped Time",
+      "pinterest_description": "Five turning points reveal how time became what we recognize today. Discover time, time facts, how time works through a visual story that turns the idea into a clear, memorable mental model. Save this time explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Time",
+        "#TimeFacts",
+        "#HowTimeWorks",
+        "#ScaleComparisonInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about time. Five-panel transformation timeline for time; left-to-right progression, consistent subject silhouette, changing environment, distinct era cues, strong final-state emphasis. Opening visual: Start at the earliest recognizable state of time with a clear time marker. Visual progression: Advance through five transformations, making the change between stages visually explicit. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 4,
+      "specificity": 8,
+      "novelty": 7,
+      "emotional_impact": 5,
+      "shareability": 7,
+      "visual_storytelling": 7,
+      "overall": 6
+    },
+    "local_editorial_angle": "timeline/transformation"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-09-08_time_background.png",
+    "final_path": "output/images/2026-09-08_time_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739867,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
