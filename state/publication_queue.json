@@ -276,6 +276,18 @@
       "attempt_count": 0,
       "last_error": null,
       "pinterest_pin_id": null
+    },
+    {
+      "id": "f26158d1-cebf-47fd-8685-1e0c3901c9e3",
+      "content_package_ref": "output/content_packages/20260909T095134519102Z_human-perspective.json",
+      "content_publish_date": "2026-09-09",
+      "scheduled_for": "2026-09-09T09:00:00+00:00",
+      "platform": "pinterest",
+      "status": "scheduled",
+      "created_at": "2026-09-09T09:51:35.683318+00:00",
+      "attempt_count": 0,
+      "last_error": null,
+      "pinterest_pin_id": null
     }
   ]
 }
