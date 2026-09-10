@@ -288,6 +288,18 @@
       "attempt_count": 0,
       "last_error": null,
       "pinterest_pin_id": null
+    },
+    {
+      "id": "04760e08-8b94-4155-a040-555887f78f27",
+      "content_package_ref": "output/content_packages/20260910T094937705896Z_ocean.json",
+      "content_publish_date": "2026-09-10",
+      "scheduled_for": "2026-09-10T09:00:00+00:00",
+      "platform": "pinterest",
+      "status": "scheduled",
+      "created_at": "2026-09-10T09:49:38.612248+00:00",
+      "attempt_count": 0,
+      "last_error": null,
+      "pinterest_pin_id": null
     }
   ]
 }
