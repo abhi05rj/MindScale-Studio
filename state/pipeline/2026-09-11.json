@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-09-11",
+  "plan_start_date": "2026-09-07",
+  "topic": "Brain",
+  "status": "queued",
+  "created_at": "2026-09-11T09:48:34.887644+00:00",
+  "updated_at": "2026-09-11T09:48:36.038842+00:00",
+  "content_package_ref": "output/content_packages/20260911T094834892360Z_brain.json",
+  "queue_item_id": "dfc12d34-ebbc-4f09-88fe-02720df98fdf",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-09-11T09:48:34.887644+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-09-11T09:48:34.887986+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-09-11T09:48:36.035899+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-09-11T09:48:36.038842+00:00"
+    }
+  ]
+}
