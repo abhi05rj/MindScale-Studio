@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-14T10:45:45.533486+00:00",
+  "publish_date": "2026-09-14",
+  "topic": "Space",
+  "content_package": {
+    "topic": "Space",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "5 Turning Points That Shaped Outer Space",
+      "hook": "Five turning points reveal how the vacuum of space became what we recognize today.",
+      "story_structure": {
+        "opening": "Start at the earliest recognizable state of the vacuum of space with a clear time marker.",
+        "escalation": "Advance through five transformations, making the change between stages visually explicit.",
+        "takeaway": "End in the present with one clue about what may change next."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Five-panel transformation timeline for the vacuum of space; left-to-right progression, consistent subject silhouette, changing environment, distinct era cues, strong final-state emphasis",
+      "pinterest_keywords": [
+        "space",
+        "space facts",
+        "how space works",
+        "pattern discovery infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "5 Turning Points That Shaped Outer Space",
+      "pinterest_description": "Five turning points reveal how the vacuum of space became what we recognize today. Discover space, space facts, how space works through a visual story that turns the idea into a clear, memorable mental model. Save this space explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Space",
+        "#SpaceFacts",
+        "#HowSpaceWorks",
+        "#PatternDiscoveryInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about space. Five-panel transformation timeline for the vacuum of space; left-to-right progression, consistent subject silhouette, changing environment, distinct era cues, strong final-state emphasis. Opening visual: Start at the earliest recognizable state of the vacuum of space with a clear time marker. Visual progression: Advance through five transformations, making the change between stages visually explicit. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 4,
+      "specificity": 8,
+      "novelty": 7,
+      "emotional_impact": 5,
+      "shareability": 7,
+      "visual_storytelling": 7,
+      "overall": 6
+    },
+    "local_editorial_angle": "timeline/transformation"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-09-14_space_background.png",
+    "final_path": "output/images/2026-09-14_space_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739873,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}

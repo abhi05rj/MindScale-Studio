@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-09-14",
+  "plan_start_date": "2026-09-14",
+  "topic": "Space",
+  "status": "queued",
+  "created_at": "2026-09-14T10:45:45.529121+00:00",
+  "updated_at": "2026-09-14T10:45:46.631025+00:00",
+  "content_package_ref": "output/content_packages/20260914T104545533486Z_space.json",
+  "queue_item_id": "b532973a-58e9-4c85-a809-e66e92e97ac5",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-09-14T10:45:45.529121+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-09-14T10:45:45.529460+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-09-14T10:45:46.627772+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-09-14T10:45:46.631025+00:00"
+    }
+  ]
+}
