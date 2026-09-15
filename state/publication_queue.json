@@ -348,6 +348,18 @@
       "attempt_count": 0,
       "last_error": null,
       "pinterest_pin_id": null
+    },
+    {
+      "id": "eff0d2e1-6177-4e4c-89ce-6d57380846bf",
+      "content_package_ref": "output/content_packages/20260915T100934570179Z_time.json",
+      "content_publish_date": "2026-09-15",
+      "scheduled_for": "2026-09-15T09:00:00+00:00",
+      "platform": "pinterest",
+      "status": "scheduled",
+      "created_at": "2026-09-15T10:09:35.756074+00:00",
+      "attempt_count": 0,
+      "last_error": null,
+      "pinterest_pin_id": null
     }
   ]
 }
