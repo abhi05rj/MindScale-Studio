@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-18T09:51:26.903088+00:00",
+  "publish_date": "2026-09-18",
+  "topic": "Brain",
+  "content_package": {
+    "topic": "Brain",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "What If We Experienced the Human Brain at 10× Scale?",
+      "hook": "Changing one condition turns the brain's attention system into a thought experiment with surprising consequences.",
+      "story_structure": {
+        "opening": "Establish normal the brain's attention system and clearly identify the single rule that will change.",
+        "escalation": "Follow three cause-and-effect consequences, increasing the stakes at each step.",
+        "takeaway": "Return to reality and show what the scenario reveals about how the brain's attention system actually works."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Cause-and-effect triptych for the brain's attention system; normal baseline on left, altered 10× world at center, cascading consequences on right, cinematic visual continuity",
+      "pinterest_keywords": [
+        "brain",
+        "brain facts",
+        "how brain works",
+        "pattern discovery infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "What If We Experienced the Human Brain at 10× Scale?",
+      "pinterest_description": "Changing one condition turns the brain's attention system into a thought experiment with surprising consequences. Discover brain, brain facts, how brain works through a visual story that turns the idea into a clear, memorable mental model. Save this brain explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Brain",
+        "#BrainFacts",
+        "#HowBrainWorks",
+        "#PatternDiscoveryInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about brain. Cause-and-effect triptych for the brain's attention system; normal baseline on left, altered 10× world at center, cascading consequences on right, cinematic visual continuity. Opening visual: Establish normal the brain's attention system and clearly identify the single rule that will change. Visual progression: Follow three cause-and-effect consequences, increasing the stakes at each step. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 6,
+      "specificity": 8,
+      "novelty": 7,
+      "emotional_impact": 6,
+      "shareability": 6,
+      "visual_storytelling": 6,
+      "overall": 6
+    },
+    "local_editorial_angle": "what-if scenario"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-09-18_brain_background.png",
+    "final_path": "output/images/2026-09-18_brain_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739877,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
