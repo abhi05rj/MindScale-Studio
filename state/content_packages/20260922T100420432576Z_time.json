@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-22T10:04:20.432576+00:00",
+  "publish_date": "2026-09-22",
+  "topic": "Time",
+  "content_package": {
+    "topic": "Time",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "Your Brain Can Stretch a Second Without Changing the Clock",
+      "hook": "Fear, novelty, and attention can make equal moments feel radically different in memory.",
+      "story_structure": {
+        "opening": "Open with time beside one familiar object the audience instantly recognizes.",
+        "escalation": "Move through three scale jumps, keeping the original object visible as an anchor.",
+        "takeaway": "End with one ratio that makes the scale of time easy to remember and share."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Three-stage scale ladder for time; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast",
+      "pinterest_keywords": [
+        "time",
+        "time facts",
+        "how time works",
+        "scale/comparison infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "Your Brain Can Stretch a Second Without Changing the Clock",
+      "pinterest_description": "Fear, novelty, and attention can make equal moments feel radically different in memory. Discover time, time facts, how time works through a visual story that turns the idea into a clear, memorable mental model. Save this time explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Time",
+        "#TimeFacts",
+        "#HowTimeWorks",
+        "#ScaleComparisonInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about time. Three-stage scale ladder for time; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast. Opening visual: Open with time beside one familiar object the audience instantly recognizes. Visual progression: Move through three scale jumps, keeping the original object visible as an anchor. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 3,
+      "specificity": 6,
+      "novelty": 4,
+      "emotional_impact": 6,
+      "shareability": 7,
+      "visual_storytelling": 7,
+      "overall": 6
+    },
+    "local_editorial_angle": "scale/comparison"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-09-22_time_background.png",
+    "final_path": "output/images/2026-09-22_time_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739881,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}
