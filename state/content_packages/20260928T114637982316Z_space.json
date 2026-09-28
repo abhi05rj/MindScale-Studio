@@ -1,0 +1,69 @@
+{
+  "created_at": "2026-09-28T11:46:37.982316+00:00",
+  "publish_date": "2026-09-28",
+  "topic": "Space",
+  "content_package": {
+    "topic": "Space",
+    "strategy": {
+      "category": "Curiosity-Driven Visual Education",
+      "title": "See Outer Space at True Scale: A Comparison You Can Picture",
+      "hook": "One familiar comparison makes the true scale of the vacuum of space feel completely different.",
+      "story_structure": {
+        "opening": "Open with the vacuum of space beside one familiar object the audience instantly recognizes.",
+        "escalation": "Move through three scale jumps, keeping the original object visible as an anchor.",
+        "takeaway": "End with one ratio that makes the scale of the vacuum of space easy to remember and share."
+      },
+      "audience": "Curious learners who save and share clear visual explanations.",
+      "visual_direction": "Three-stage scale ladder for the vacuum of space; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast",
+      "pinterest_keywords": [
+        "space",
+        "space facts",
+        "how space works",
+        "pattern discovery infographic",
+        "educational infographic",
+        "visual learning"
+      ]
+    },
+    "pinterest": {
+      "pinterest_title": "See Outer Space at True Scale: A Comparison You Can Picture",
+      "pinterest_description": "One familiar comparison makes the true scale of the vacuum of space feel completely different. Discover space, space facts, how space works through a visual story that turns the idea into a clear, memorable mental model. Save this space explainer for your next curiosity deep dive, or share it with someone who loves seeing familiar ideas differently.",
+      "hashtags": [
+        "#Space",
+        "#SpaceFacts",
+        "#HowSpaceWorks",
+        "#PatternDiscoveryInfographic",
+        "#EducationalInfographic",
+        "#VisualLearning"
+      ],
+      "image_prompt": "Pinterest vertical 2:3 visual story about space. Three-stage scale ladder for the vacuum of space; familiar object in foreground, repeated size anchor, dramatic zoom-out, clear depth and measurable contrast. Opening visual: Open with the vacuum of space beside one familiar object the audience instantly recognizes. Visual progression: Move through three scale jumps, keeping the original object visible as an anchor. Create one dominant focal subject, clear foreground/midground/background separation, strong scale cues, intentional negative space for title overlay, cinematic natural light, cohesive editorial color palette, premium educational illustration, no text, no labels, no logos, no watermark."
+    },
+    "scores": {
+      "curiosity": 3,
+      "specificity": 6,
+      "novelty": 4,
+      "emotional_impact": 6,
+      "shareability": 7,
+      "visual_storytelling": 7,
+      "overall": 6
+    },
+    "local_editorial_angle": "scale/comparison"
+  },
+  "pinterest_publication": {
+    "status": "not_published",
+    "pin_id": null,
+    "board_id": null,
+    "timestamp": null,
+    "error": null
+  },
+  "image": {
+    "status": "complete",
+    "background_path": "output/images/2026-09-28_space_background.png",
+    "final_path": "output/images/2026-09-28_space_pinterest.png",
+    "provider": "PillowTemplateProvider",
+    "model": "pillow-cosmic_orbits-v1",
+    "seed": 739887,
+    "width": 1000,
+    "height": 1500,
+    "format": "PNG"
+  }
+}

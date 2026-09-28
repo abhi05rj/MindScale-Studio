@@ -1,0 +1,91 @@
+{
+  "start_date": "2026-09-28",
+  "created_at": "2026-09-28T11:46:37.974354+00:00",
+  "status": "planned",
+  "days": [
+    {
+      "publish_date": "2026-09-28",
+      "topic": "Space",
+      "working_title": "See Outer Space at True Scale: A Comparison You Can Picture",
+      "content_angle": "scale/comparison",
+      "objective": "Help curious learners understand space through visual storytelling.",
+      "hook": "One familiar comparison makes the true scale of the vacuum of space feel completely different.",
+      "angle_pattern": "scale/comparison",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-29",
+      "topic": "Time",
+      "working_title": "Where Does Time End—and Something Else Begin?",
+      "content_angle": "boundary/threshold",
+      "objective": "Help curious learners understand time through visual storytelling.",
+      "hook": "The boundary around time is less like a line and more like a revealing transition zone.",
+      "angle_pattern": "boundary/threshold",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-09-30",
+      "topic": "Human Perspective",
+      "working_title": "What If We Experienced Human Perception at 10× Scale?",
+      "content_angle": "what-if scenario",
+      "objective": "Help curious learners understand human perspective through visual storytelling.",
+      "hook": "Changing one condition turns visual perception into a thought experiment with surprising consequences.",
+      "angle_pattern": "what-if scenario",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-10-01",
+      "topic": "Ocean",
+      "working_title": "One Fact About the Ocean That Sounds Wrong—but Isn't",
+      "content_angle": "counterintuitive fact",
+      "objective": "Help curious learners understand ocean through visual storytelling.",
+      "hook": "The most useful fact about deep-ocean circulation initially feels like it should be impossible.",
+      "angle_pattern": "counterintuitive fact",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-10-02",
+      "topic": "Brain",
+      "working_title": "5 Turning Points That Shaped the Human Brain",
+      "content_angle": "timeline/transformation",
+      "objective": "Help curious learners understand brain through visual storytelling.",
+      "hook": "Five turning points reveal how the brain's attention system became what we recognize today.",
+      "angle_pattern": "timeline/transformation",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-10-03",
+      "topic": "Nature",
+      "working_title": "The Hidden Chain Reaction Shaping Nature",
+      "content_angle": "hidden mechanism",
+      "objective": "Help curious learners understand nature through visual storytelling.",
+      "hook": "What looks simple on the surface of a forest ecosystem depends on an invisible sequence underneath.",
+      "angle_pattern": "hidden mechanism",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    },
+    {
+      "publish_date": "2026-10-04",
+      "topic": "Universe",
+      "working_title": "The Observable Universe Is 93 Billion Light-Years Wide—So Why Is It 13.8 Billion Years Old?",
+      "content_angle": "scale/comparison",
+      "objective": "Help curious learners understand universe through visual storytelling.",
+      "hook": "Cosmic expansion makes the universe far larger than a simple light-travel calculation suggests.",
+      "angle_pattern": "scale/comparison",
+      "quality_score": 6,
+      "quality_rewritten": true,
+      "status": "planned"
+    }
+  ]
+}
