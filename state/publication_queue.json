@@ -600,6 +600,18 @@
       "attempt_count": 0,
       "last_error": null,
       "pinterest_pin_id": null
+    },
+    {
+      "id": "429a2d17-1bcb-4d90-b157-4d75b5b8f60e",
+      "content_package_ref": "output/content_packages/20261007T115035277431Z_human-perspective.json",
+      "content_publish_date": "2026-10-07",
+      "scheduled_for": "2026-10-07T09:00:00+00:00",
+      "platform": "pinterest",
+      "status": "scheduled",
+      "created_at": "2026-10-07T11:50:36.396415+00:00",
+      "attempt_count": 0,
+      "last_error": null,
+      "pinterest_pin_id": null
     }
   ]
 }
