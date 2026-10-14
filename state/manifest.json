@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "exported_at": "2026-10-13T12:46:28.067776+00:00",
+  "exported_at": "2026-10-14T10:18:24.331933+00:00",
   "image_artifact": {
-    "run_id": "38399760297",
-    "name": "mindscale-images-38399760297"
+    "run_id": "38548605136",
+    "name": "mindscale-images-38548605136"
   },
   "counts": {
     "content_plans": 9,
