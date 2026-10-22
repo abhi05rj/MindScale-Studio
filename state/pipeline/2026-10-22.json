@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-10-22",
+  "plan_start_date": "2026-10-19",
+  "topic": "Ocean",
+  "status": "queued",
+  "created_at": "2026-10-22T10:17:42.733223+00:00",
+  "updated_at": "2026-10-22T10:17:43.480477+00:00",
+  "content_package_ref": "output/content_packages/20261022T101742738101Z_ocean.json",
+  "queue_item_id": "12f4f72f-a9ca-4387-bcb1-efc13d2e12e8",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-10-22T10:17:42.733223+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-10-22T10:17:42.733451+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-10-22T10:17:43.476844+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-10-22T10:17:43.480477+00:00"
+    }
+  ]
+}
