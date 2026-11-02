@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "exported_at": "2026-11-01T11:53:38.067630+00:00",
+  "exported_at": "2026-11-02T13:37:41.529275+00:00",
   "image_artifact": {
-    "run_id": "41303876533",
-    "name": "mindscale-images-41303876533"
+    "run_id": "41454564470",
+    "name": "mindscale-images-41454564470"
   },
   "counts": {
-    "content_plans": 11,
-    "pipeline_states": 72,
-    "content_packages": 72,
+    "content_plans": 12,
+    "pipeline_states": 73,
+    "content_packages": 73,
     "publication_attempts": 0,
     "queue_present": true
   }
