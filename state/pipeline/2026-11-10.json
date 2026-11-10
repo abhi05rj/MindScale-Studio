@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-11-10",
+  "plan_start_date": "2026-11-09",
+  "topic": "Time",
+  "status": "queued",
+  "created_at": "2026-11-10T13:34:31.507687+00:00",
+  "updated_at": "2026-11-10T13:34:32.533510+00:00",
+  "content_package_ref": "output/content_packages/20261110T133431549137Z_time.json",
+  "queue_item_id": "fcfa228b-ac6e-4b39-a413-a9cbdbd7071c",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-11-10T13:34:31.507687+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-11-10T13:34:31.507888+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-11-10T13:34:32.529312+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-11-10T13:34:32.533510+00:00"
+    }
+  ]
+}
