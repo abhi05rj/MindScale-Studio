@@ -1,0 +1,29 @@
+{
+  "target_date": "2026-11-28",
+  "plan_start_date": "2026-11-23",
+  "topic": "Nature",
+  "status": "queued",
+  "created_at": "2026-11-28T14:18:57.459803+00:00",
+  "updated_at": "2026-11-28T14:18:58.452720+00:00",
+  "content_package_ref": "output/content_packages/20261128T141857503509Z_nature.json",
+  "queue_item_id": "cdc1679b-6c28-4fb4-ad8b-700417477659",
+  "last_error": null,
+  "status_history": [
+    {
+      "status": "planned",
+      "timestamp": "2026-11-28T14:18:57.459803+00:00"
+    },
+    {
+      "status": "generating",
+      "timestamp": "2026-11-28T14:18:57.460112+00:00"
+    },
+    {
+      "status": "generated",
+      "timestamp": "2026-11-28T14:18:58.447100+00:00"
+    },
+    {
+      "status": "queued",
+      "timestamp": "2026-11-28T14:18:58.452720+00:00"
+    }
+  ]
+}
